@@ -1,0 +1,6 @@
+{
+  "environment": "development",
+  "access_token_secret": "my access secret key",
+  "refresh_token_secret": "my refresh secret key",
+  "mongo_connection":"mongodb://localhost/tmp-base"
+}

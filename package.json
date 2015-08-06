@@ -1,0 +1,22 @@
+{
+  "name": "alien3d",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.12.4",
+    "bootstrap": "^3.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.12.4",
+    "jsonwebtoken": "^5.0.4",
+    "mongoose": "^4.1.0",
+    "morgan": "~1.5.3",
+    "nconf": "^0.7.1",
+    "passport": "^0.2.2",
+    "passport-jwt": "^1.1.0",
+    "passport-local": "^1.0.0"
+  }
+}
