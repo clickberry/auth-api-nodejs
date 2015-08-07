@@ -1,5 +1,5 @@
 {
-  "name": "alien3d",
+  "name": "clickberry-auth-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "nconf": "^0.7.1",
     "passport": "^0.2.2",
     "passport-jwt": "^1.1.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "shortid": "^2.2.2"
   }
 }

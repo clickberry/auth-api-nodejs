@@ -5,43 +5,75 @@ var jwt = require('jsonwebtoken');
 var config = require('../config');
 var User = require('../models/user');
 
-var opts = {}
-opts.secretOrKey = config.get('access_token_secret');
-//opts.issuer = "accounts.examplesoft.com";
-//opts.audience: "yoursite.net";
-
 module.exports = function (passport) {
-    passport.use('access-token',
-        new JwtStrategy(
-            {secretOrKey: config.get('access_token_secret')},
-            function (jwtPayload, done) {
-                User.findById(jwtPayload.user._id, function (err, user) {
-                    if (err) {
-                        return done(err, false);
-                    }
-                    if (user) {
-                        done(null, user);
-                    } else {
-                        done(null, false);
-                    }
-                });
-            }));
+    passport.use('access-token', new JwtStrategy({
+        secretOrKey: config.get('access_token_secret')
+    }, function (jwtPayload, done) {
+        User.findById(jwtPayload.userId, function (err, user) {
+            if (err) {
+                return done(err, false);
+            }
+            if (user) {
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        });
+    }));
 
-    passport.use('refresh-token',
-        new JwtStrategy(
-            {secretOrKey: config.get('refresh_token_secret')},
-            function (jwtPayload, done) {
-                User.findById(jwtPayload.id, function (err, user) {
-                    if (err) {
-                        return done(err, false);
-                    }
-                    if (user) {
-                        done(null, user);
-                    } else {
-                        done(null, false);
-                    }
-                });
-            }));
+    passport.use('refresh-token', new JwtStrategy({
+        secretOrKey: config.get('refresh_token_secret'),
+        passReqToCallback: true
+    }, function (req, jwtPayload, done) {
+        User.findById(jwtPayload.userId, function (err, user) {
+            if (err) {
+                return done(err, false);
+            }
+            if (user) {
+                //TODO: check refresh token in DB with request (middleware)
+                req.token = jwtPayload.token;
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        });
+    }));
+
+    passport.use('delete-refresh-token', new JwtStrategy({
+        secretOrKey: config.get('refresh_token_secret'),
+        passReqToCallback: true
+    }, function (req, jwtPayload, done) {
+        User.findById(jwtPayload.userId, function (err, user) {
+            if (err) {
+                return done(err, false);
+            }
+            if (user) {
+                //TODO: check refresh token in DB with request (middleware)
+                req.token = jwtPayload.token;
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        });
+    }));
+
+    passport.use('delete-all-refresh-token', new JwtStrategy({
+        secretOrKey: config.get('refresh_token_secret'),
+        passReqToCallback: true
+    }, function (req, jwtPayload, done) {
+        User.findById(jwtPayload.userId, function (err, user) {
+            if (err) {
+                return done(err, false);
+            }
+            if (user) {
+                //TODO: check refresh token in DB with request (middleware)
+                req.token = jwtPayload.token;
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        });
+    }));
 
     passport.use('local-signup', new LocalStrategy({
         usernameField: 'email',
