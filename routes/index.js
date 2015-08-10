@@ -53,7 +53,6 @@ module.exports = function (passport) {
 
     router.post('/signin', [
         passport.authenticate('local-signin', {session: false}),
-        deleteRefreshToken,
         createRefreshToken,
         createAccessToken,
         updateUser

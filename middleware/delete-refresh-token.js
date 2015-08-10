@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
 
     // remove token
     user.refreshTokens.some(function (item, i, array) {
-        if (item.token === token) {
+        if (item === token) {
             array.splice(i, 1);
             return true;
         }

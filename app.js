@@ -8,9 +8,6 @@ var mongoose = require('mongoose');
 var config = require('./config');
 var routes = require('./routes/index')(passport);
 
-console.log(config.get('q_refresh_token'));
-console.log(config.get('access_token_secret'));
-
 mongoose.connect(config.get('mongo_connection'));
 require('./config/passport')(passport);
 var app = express();

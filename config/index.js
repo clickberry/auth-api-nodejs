@@ -5,7 +5,7 @@ var path = require('path');
 var configName = (process.env.NODE_ENV || "development") + '.json';
 
 config.argv()
-    .env()
+    .env('_')
     .file({file: path.join(__dirname, configName)});
 
 defaultConfig.file('default', {file: path.join(__dirname, 'default.json')});
