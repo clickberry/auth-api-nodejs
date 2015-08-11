@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var config = require('../config');
 
-module.exports = function (req, res, next) {
+exports.create = function (req, res, next) {
     var user = req.user;
     var accessPayload = createAccessPayload(user);
 

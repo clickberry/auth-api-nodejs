@@ -9,7 +9,11 @@ var config = require('./config');
 var routes = require('./routes/index')(passport);
 
 mongoose.connect(config.get('mongo_connection'));
-require('./config/passport')(passport);
+
+require('./config/passport/jwt-passport')(passport);
+require('./config/passport/local-passport')(passport);
+require('./config/passport/oauth-passport')(passport);
+
 var app = express();
 
 app.use(logger('dev'));
@@ -18,8 +22,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 
 app.use('/api', routes);
-
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

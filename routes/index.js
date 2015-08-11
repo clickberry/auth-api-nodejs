@@ -1,19 +1,9 @@
 var express = require('express');
-var checkRefreshToken = require('../middleware/check-refresh-token');
-var createAccessToken=require('../middleware/create-access-token');
-var deleteRefreshToken=require('../middleware/delete-refresh-token');
-var deleteAllRefreshToken=require('../middleware/delete-all-refresh-token');
-var createRefreshToken=require('../middleware/create-refresh-token');
-var updateUser=require('../middleware/update-user');
+var refreshToken = require('../middleware/refresh-token-mw');
+var accessToken = require('../middleware/access-token-mw');
+var updateUser = require('../middleware/update-user-mw');
 
 var router = express.Router();
-
-function mapUser(user) {
-    return {
-        id: user._id,
-        email: user.local.email
-    }
-}
 
 module.exports = function (passport) {
     router.get('/profile',
@@ -26,10 +16,10 @@ module.exports = function (passport) {
 
     router.get('/refresh', [
         passport.authenticate('refresh-token', {session: false}),
-        checkRefreshToken,
-        deleteRefreshToken,
-        createRefreshToken,
-        createAccessToken,
+        refreshToken.check,
+        refreshToken.remove,
+        refreshToken.create,
+        accessToken.create,
         updateUser
     ], function (req, res) {
         res.send({
@@ -40,8 +30,8 @@ module.exports = function (passport) {
 
     router.post('/signup', [
         passport.authenticate('local-signup', {session: false}),
-        createRefreshToken,
-        createAccessToken,
+        refreshToken.create,
+        accessToken.create,
         updateUser
     ], function (req, res) {
         res.status(201);
@@ -53,8 +43,8 @@ module.exports = function (passport) {
 
     router.post('/signin', [
         passport.authenticate('local-signin', {session: false}),
-        createRefreshToken,
-        createAccessToken,
+        refreshToken.create,
+        accessToken.create,
         updateUser
     ], function (req, res) {
         res.send({
@@ -65,7 +55,7 @@ module.exports = function (passport) {
 
     router.delete('/signout', [
         passport.authenticate('delete-refresh-token', {session: false}),
-        deleteRefreshToken,
+        refreshToken.remove,
         updateUser
     ], function (req, res) {
         res.send(200);
@@ -73,7 +63,7 @@ module.exports = function (passport) {
 
     router.delete('/signoutall', [
         passport.authenticate('delete-all-refresh-token', {session: false}),
-        deleteAllRefreshToken,
+        refreshToken.removeAll,
         updateUser
     ], function (req, res) {
         res.send(200);
@@ -81,3 +71,10 @@ module.exports = function (passport) {
 
     return router;
 };
+
+function mapUser(user) {
+    return {
+        id: user._id,
+        email: user.local.email
+    }
+}
