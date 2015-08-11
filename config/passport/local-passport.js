@@ -9,32 +9,30 @@ module.exports = function (passport) {
         passwordField: 'password',
         passReqToCallback: true
     }, function (req, email, password, done) {
-        process.nextTick((function () {
-            User.findOne({'local.email': email}, function (err, user) {
-                if (err)
-                    return done(err);
+        User.findOne({'local.email': email}, function (err, user) {
+            if (err)
+                return done(err);
 
-                if (user) {
-                    //return done(null, false, req.flash('signupMessage', 'That email is already taken.'))
-                    return done(null, false);
-                } else {
-                    var newUser = new User();
-                    newUser.local.email = email;
-                    newUser.generateHash(password, function (err, hash) {
+            if (user) {
+                //return done(null, false, req.flash('signupMessage', 'That email is already taken.'))
+                return done(null, false);
+            } else {
+                var newUser = new User();
+                newUser.local.email = email;
+                newUser.generateHash(password, function (err, hash) {
+                    if (err)
+                        return done(err);
+
+                    newUser.local.password = hash;
+                    newUser.save(function (err) {
                         if (err)
                             return done(err);
 
-                        newUser.local.password = hash;
-                        newUser.save(function (err) {
-                            if (err)
-                                return done(err);
-
-                            return done(null, newUser);
-                        });
+                        return done(null, newUser);
                     });
-                }
-            });
-        }));
+                });
+            }
+        });
     }));
 
     passport.use('local-signin', new LocalStrategy({

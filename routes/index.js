@@ -14,6 +14,23 @@ module.exports = function (passport) {
         }
     );
 
+    router.get('/auth/facebook', passport.authenticate('facebook', {
+        failureRedirect: '/',
+        scope: ['email']
+    }));
+
+    router.get('/auth/facebook/callback', [
+        passport.authenticate('facebook', {session: false}),
+        refreshToken.create,
+        accessToken.create,
+        updateUser
+    ], function (req, res) {
+        res.send({
+            accessToken: res.locals.accessToken,
+            refreshToken: res.locals.refreshToken
+        });
+    });
+
     router.get('/refresh', [
         passport.authenticate('refresh-token', {session: false}),
         refreshToken.check,

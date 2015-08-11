@@ -2,5 +2,10 @@
   "environment": "development",
   "access_token_secret": "my access secret key",
   "refresh_token_secret": "my refresh secret key",
-  "mongo_connection":"mongodb://localhost/tmp-base"
+  "mongo_connection":"mongodb://localhost/tmp-base",
+  "facebook": {
+    "clientID": "854377151264607",
+    "clientSecret": "dfa41c548a076c1165291beaf75a953e",
+    "callbackURL": "http://localhost:8080/api/auth/facebook/callback"
+  }
 }
