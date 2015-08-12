@@ -7,5 +7,10 @@
     "clientID": "854377151264607",
     "clientSecret": "dfa41c548a076c1165291beaf75a953e",
     "callbackURL": "http://localhost:8080/api/auth/facebook/callback"
+  },
+  "twitter": {
+    "consumerKey": "0auZekHhAnpEFSPZsEz0rghNJ",
+    "consumerSecret": "FWXXELBoCHt2liu5fGqSSkMkKfhbETgn3jjLG3DcIJ7DgOblqo",
+    "callbackURL": "http://localhost:8080/api/auth/twitter/callback"
   }
 }

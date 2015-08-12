@@ -5,13 +5,19 @@ var userSchema = mongoose.Schema({
     refreshTokens: [String],
     local: {
         email: String,
-        password: String        
+        password: String
     },
-    facebook:{
-        id:String,
-        token:String,
-        email:String,
-        name:String
+    facebook: {
+        id: String,
+        token: String,
+        email: String,
+        name: String
+    },
+    twitter: {
+        id: String,
+        token: String,
+        userName: String,
+        displayName: String
     }
 });
 

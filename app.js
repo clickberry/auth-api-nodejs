@@ -15,11 +15,20 @@ require('./config/passport/local-passport')(passport);
 require('./config/passport/oauth-passport')(passport);
 
 var app = express();
+// For Twitter only ---------------
+var session = require('express-session');
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' }));
+// For Twitter only ---------------
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+
+
 app.use(passport.initialize());
+//app.use(passport.session());
 
 app.use('/api', routes);
 

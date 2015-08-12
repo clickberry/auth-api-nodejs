@@ -14,6 +14,7 @@ module.exports = function (passport) {
         }
     );
 
+    // Facebook ----------------------
     router.get('/auth/facebook', passport.authenticate('facebook', {
         failureRedirect: '/',
         scope: ['email']
@@ -30,6 +31,24 @@ module.exports = function (passport) {
             refreshToken: res.locals.refreshToken
         });
     });
+
+    // Twitter ----------------------
+    router.get('/auth/twitter', passport.authenticate('twitter', {
+        failureRedirect: '/'
+    }));
+
+    router.get('/auth/twitter/callback', [
+        passport.authenticate('twitter', {session: false}),
+        refreshToken.create,
+        accessToken.create,
+        updateUser
+    ], function (req, res) {
+        res.send({
+            accessToken: res.locals.accessToken,
+            refreshToken: res.locals.refreshToken
+        });
+    });
+
 
     router.get('/refresh', [
         passport.authenticate('refresh-token', {session: false}),
