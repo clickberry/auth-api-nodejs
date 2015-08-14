@@ -1,5 +1,7 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
 var config = require('../index');
 var User = require('../../models/user');
 
@@ -19,8 +21,8 @@ module.exports = function (passport) {
                 var newUser = new User();
                 newUser.facebook.id = profile.id;
                 newUser.facebook.token = token;
-                newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                newUser.facebook.email = profile && profile.emails && profile.emails[0].value;
+                newUser.facebook.name = profile.displayName;
+                newUser.facebook.email = profile.emails && profile.emails[0].value;
 
                 done(null, newUser);
             }
@@ -49,6 +51,31 @@ module.exports = function (passport) {
             }
         });
     }));
+
+    passport.use(new GoogleStrategy({
+            clientID: config.get('google:clientID'),
+            clientSecret: config.get('google:clientSecret'),
+            callbackURL: config.get('google:callbackURL')
+        },
+        function(token, tokenSecret, profile, done) {
+            User.findOne({'google.id': profile.id}, function (err, user) {
+                if (err)
+                    return done(err);
+
+                if (user) {
+                    return done(null, user);
+                } else {
+                    var newUser = new User();
+                    newUser.google.id = profile.id;
+                    newUser.google.token = token;
+                    newUser.google.name = profile.displayName;
+                    newUser.google.email = profile && profile.emails && profile.emails[0].value;
+
+                    done(null, newUser);
+                }
+            });
+        }
+    ));
 
     //passport.serializeUser(function (user, done) {
     //    done(null, user.id);

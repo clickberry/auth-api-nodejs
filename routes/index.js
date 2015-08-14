@@ -49,6 +49,23 @@ module.exports = function (passport) {
         });
     });
 
+    // Google ----------------------
+    router.get('/auth/google', passport.authenticate('google', {
+        failureRedirect: '/',
+        scope: ['email']
+    }));
+
+    router.get('/auth/google/callback', [
+        passport.authenticate('google', {session: false}),
+        refreshToken.create,
+        accessToken.create,
+        updateUser
+    ], function (req, res) {
+        res.send({
+            accessToken: res.locals.accessToken,
+            refreshToken: res.locals.refreshToken
+        });
+    });
 
     router.get('/refresh', [
         passport.authenticate('refresh-token', {session: false}),

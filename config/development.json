@@ -12,5 +12,10 @@
     "consumerKey": "0auZekHhAnpEFSPZsEz0rghNJ",
     "consumerSecret": "FWXXELBoCHt2liu5fGqSSkMkKfhbETgn3jjLG3DcIJ7DgOblqo",
     "callbackURL": "http://localhost:8080/api/auth/twitter/callback"
+  },
+  "google":{
+    "clientID": "185683082519-onshefuipn2mptq7d00fgmpa4gpve68f.apps.googleusercontent.com",
+    "clientSecret": "gWhoOH7hMOePG24iqmBjks7n",
+    "callbackURL": "http://localhost:8080/api/auth/google/callback"
   }
 }
