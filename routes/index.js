@@ -67,6 +67,24 @@ module.exports = function (passport) {
         });
     });
 
+    // Vkontakte ----------------------
+    router.get('/auth/vk', passport.authenticate('vkontakte', {
+        failureRedirect: '/',
+        scope: ['email']
+    }));
+
+    router.get('/auth/vk/callback', [
+        passport.authenticate('vkontakte', {session: false}),
+        refreshToken.create,
+        accessToken.create,
+        updateUser
+    ], function (req, res) {
+        res.send({
+            accessToken: res.locals.accessToken,
+            refreshToken: res.locals.refreshToken
+        });
+    });
+
     router.get('/refresh', [
         passport.authenticate('refresh-token', {session: false}),
         refreshToken.check,

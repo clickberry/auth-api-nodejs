@@ -1,6 +1,7 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var VKontakteStrategy = require('passport-vkontakte').Strategy;
 
 var config = require('../index');
 var User = require('../../models/user');
@@ -69,7 +70,31 @@ module.exports = function (passport) {
                     newUser.google.id = profile.id;
                     newUser.google.token = token;
                     newUser.google.name = profile.displayName;
-                    newUser.google.email = profile && profile.emails && profile.emails[0].value;
+                    newUser.google.email = profile.emails && profile.emails[0].value;
+
+                    done(null, newUser);
+                }
+            });
+        }
+    ));
+
+    passport.use(new VKontakteStrategy({
+            clientID: config.get('vk:clientID'),
+            clientSecret: config.get('vk:clientSecret'),
+            callbackURL: config.get('vk:callbackURL')
+        },
+        function(token, tokenSecret, profile, done) {
+            User.findOne({'vk.id': profile.id}, function (err, user) {
+                if (err)
+                    return done(err);
+
+                if (user) {
+                    return done(null, user);
+                } else {
+                    var newUser = new User();
+                    newUser.vk.id = profile.id;
+                    newUser.vk.token = token;
+                    newUser.vk.name = profile.displayName;
 
                     done(null, newUser);
                 }
