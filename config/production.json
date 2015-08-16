@@ -1,3 +1,25 @@
 {
-  "environment": "production"
+  "environment": "production",
+  "access_token_secret": "my access secret key",
+  "refresh_token_secret": "my refresh secret key",
+  "facebook": {
+    "clientID": "854377151264607",
+    "clientSecret": "dfa41c548a076c1165291beaf75a953e",
+    "callbackURL": "http://localhost:8080/api/auth/facebook/callback"
+  },
+  "twitter": {
+    "consumerKey": "0auZekHhAnpEFSPZsEz0rghNJ",
+    "consumerSecret": "FWXXELBoCHt2liu5fGqSSkMkKfhbETgn3jjLG3DcIJ7DgOblqo",
+    "callbackURL": "http://localhost:8080/api/auth/twitter/callback"
+  },
+  "google": {
+    "clientID": "185683082519-onshefuipn2mptq7d00fgmpa4gpve68f.apps.googleusercontent.com",
+    "clientSecret": "gWhoOH7hMOePG24iqmBjks7n",
+    "callbackURL": "http://localhost:8080/api/auth/google/callback"
+  },
+  "vk": {
+    "clientID": "5032382",
+    "clientSecret": "cHGVjlz0syYTWXSYNv7X",
+    "callbackURL": "http://localhost:8080/api/auth/vk/callback"
+  }
 }
