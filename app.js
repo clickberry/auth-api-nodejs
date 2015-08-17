@@ -9,7 +9,7 @@ var config = require('./config');
 var routes = require('./routes/index')(passport);
 
 mongoose.connect(config.get('mongodb:connection'));
-
+console.log(config.getUrl('twitter:callbackURL'));
 require('./config/passport/jwt-passport')(passport);
 require('./config/passport/local-passport')(passport);
 require('./config/passport/oauth-passport')(passport);

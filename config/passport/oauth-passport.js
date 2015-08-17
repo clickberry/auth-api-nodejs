@@ -10,7 +10,7 @@ module.exports = function (passport) {
     passport.use(new FacebookStrategy({
         clientID: config.get('facebook:clientID'),
         clientSecret: config.get('facebook:clientSecret'),
-        callbackURL: config.get('facebook:callbackURL')
+        callbackURL: config.getUrl('facebook:callbackURL')
     }, function (token, refreshToken, profile, done) {
         User.findOne({'facebook.id': profile.id}, function (err, user) {
             if (err)
@@ -33,7 +33,7 @@ module.exports = function (passport) {
     passport.use(new TwitterStrategy({
         consumerKey: config.get('twitter:consumerKey'),
         consumerSecret: config.get('twitter:consumerSecret'),
-        callbackURL: config.get('twitter:callbackURL')
+        callbackURL: config.getUrl('twitter:callbackURL')
     }, function (token, refreshToken, profile, done) {
         User.findOne({'twitter.id': profile.id}, function (err, user) {
             if (err)
@@ -56,7 +56,7 @@ module.exports = function (passport) {
     passport.use(new GoogleStrategy({
             clientID: config.get('google:clientID'),
             clientSecret: config.get('google:clientSecret'),
-            callbackURL: config.get('google:callbackURL')
+            callbackURL: config.getUrl('google:callbackURL')
         },
         function(token, tokenSecret, profile, done) {
             User.findOne({'google.id': profile.id}, function (err, user) {
@@ -81,7 +81,7 @@ module.exports = function (passport) {
     passport.use(new VKontakteStrategy({
             clientID: config.get('vk:clientID'),
             clientSecret: config.get('vk:clientSecret'),
-            callbackURL: config.get('vk:callbackURL')
+            callbackURL: config.getUrl('vk:callbackURL')
         },
         function(token, tokenSecret, profile, done) {
             User.findOne({'vk.id': profile.id}, function (err, user) {
@@ -101,14 +101,4 @@ module.exports = function (passport) {
             });
         }
     ));
-
-    //passport.serializeUser(function (user, done) {
-    //    done(null, user.id);
-    //});
-    //
-    //passport.deserializeUser(function (id, done) {
-    //    User.findById(id, function (err, user) {
-    //        done(err, user);
-    //    });
-    //});
 };

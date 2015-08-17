@@ -13,9 +13,16 @@ var get = function (param) {
 };
 
 var getInt = function (param, defValue) {
-    var value=get(param);
+    var value = get(param);
     return parseInt(value) || defValue;
+};
+
+var getUrl = function (param) {
+    var hostName = config.get('hostName') + ':' + config.get('port');
+    var pathUrl = config.get(param);
+    return hostName + pathUrl;
 };
 
 exports.get = get;
 exports.getInt = getInt;
+exports.getUrl = getUrl;
