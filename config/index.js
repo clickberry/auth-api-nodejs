@@ -18,8 +18,8 @@ var getInt = function (param, defValue) {
 };
 
 var getUrl = function (param) {
-    var hostName = config.get('hostName') + ':' + config.get('port');
-    var pathUrl = config.get(param);
+    var hostName = get('hostName') + ':' + get('port');
+    var pathUrl = get(param);
     return hostName + pathUrl;
 };
 
