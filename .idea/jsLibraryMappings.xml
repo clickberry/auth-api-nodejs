@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$" libraries="{auth-api-nodejs node_modules}" />
     <file url="PROJECT" libraries="{Node.js v0.11.14-nightly-20140819-pre Core Modules, node_modules}" />
     <includedPredefinedLibrary name="Node.js Globals" />
   </component>

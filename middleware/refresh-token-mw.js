@@ -9,8 +9,8 @@ function create(req, res, next) {
     user.refreshTokens = user.refreshTokens || [];
 
     // delete token if quantity is overflow
-    var qRefreshTokens = parseInt(config.get('qRefreshToken')) || 20;
-    if (user.refreshTokens.length >= qRefreshTokens) {
+    var maxSessions = config.getInt('maxSessions');
+    if (user.refreshTokens.length >= maxSessions) {
         user.refreshTokens.shift();
     }
 
@@ -18,7 +18,7 @@ function create(req, res, next) {
     user.refreshTokens.push(refreshPayload.token);
 
 
-    res.locals.refreshToken = createRefreshToken(refreshPayload, 10080);
+    res.locals.refreshToken = createRefreshToken(refreshPayload);
     next();
 }
 
@@ -76,6 +76,8 @@ function createRefreshPayload(user) {
     };
 }
 
-function createRefreshToken(payload, expires) {
-    return jwt.sign(payload, config.get('token:refreshToken'), {expiresInMinutes: expires});
+function createRefreshToken(payload) {
+    var refreshSecret = config.get("token:refreshSecret");
+    var refreshTimeout = config.getInt("token:refreshTimeout");
+    return jwt.sign(payload, refreshSecret, {expiresInSeconds: refreshTimeout});
 }

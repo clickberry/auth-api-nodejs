@@ -5,7 +5,7 @@ exports.create = function (req, res, next) {
     var user = req.user;
     var accessPayload = createAccessPayload(user);
 
-    res.locals.accessToken = createAccessToken(accessPayload, 20);
+    res.locals.accessToken = createAccessToken(accessPayload);
     next();
 };
 
@@ -15,6 +15,8 @@ function createAccessPayload(user) {
     };
 }
 
-function createAccessToken(payload, expires) {
-    return jwt.sign(payload, config.get('token:accessToken'), {expiresInSeconds: expires});
+function createAccessToken(payload) {
+    var accessSecret = config.get("token:accessSecret");
+    var accessTimeout = config.getInt("token:accessTimeout");
+    return jwt.sign(payload, accessSecret, {expiresInSeconds: accessTimeout});
 }
