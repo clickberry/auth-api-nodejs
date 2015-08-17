@@ -32,7 +32,7 @@ Update access & refresh tokens
 ### Request
 | Header   | Value |
 |----------|-------------|
-| JWT     | [refreshToken] |
+| authorization     | "JWT [refreshToken]" |
 ### Response
 |            |  Value                                                                  |
 |------------|--------------------------------------------------------------------|
