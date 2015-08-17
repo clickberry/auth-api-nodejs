@@ -9,7 +9,7 @@ function create(req, res, next) {
     user.refreshTokens = user.refreshTokens || [];
 
     // delete token if quantity is overflow
-    var qRefreshTokens = parseInt(config.get('q_refresh_token')) || 20;
+    var qRefreshTokens = parseInt(config.get('qRefreshToken')) || 20;
     if (user.refreshTokens.length >= qRefreshTokens) {
         user.refreshTokens.shift();
     }
@@ -77,5 +77,5 @@ function createRefreshPayload(user) {
 }
 
 function createRefreshToken(payload, expires) {
-    return jwt.sign(payload, config.get('refresh_token_secret'), {expiresInMinutes: expires});
+    return jwt.sign(payload, config.get('token:refreshToken'), {expiresInMinutes: expires});
 }

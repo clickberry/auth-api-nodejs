@@ -1,4 +1,4 @@
 {
-  "q_refresh_token": "10",
+  "qRefreshToken": "10",
   "port":"8080"
 }

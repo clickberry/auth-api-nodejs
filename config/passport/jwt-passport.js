@@ -5,7 +5,7 @@ var User = require('../../models/user');
 
 module.exports = function (passport) {
     passport.use('access-token', new JwtStrategy({
-        secretOrKey: config.get('access_token_secret')
+        secretOrKey: config.get('token:accessSecret')
     }, function (jwtPayload, done) {
         User.findById(jwtPayload.userId, function (err, user) {
             if (err) {
@@ -20,7 +20,7 @@ module.exports = function (passport) {
     }));
 
     passport.use('refresh-token', new JwtStrategy({
-        secretOrKey: config.get('refresh_token_secret'),
+        secretOrKey: config.get('token:refreshSecret'),
         passReqToCallback: true
     }, function (req, jwtPayload, done) {
         User.findById(jwtPayload.userId, function (err, user) {
@@ -37,7 +37,7 @@ module.exports = function (passport) {
     }));
 
     passport.use('delete-refresh-token', new JwtStrategy({
-        secretOrKey: config.get('refresh_token_secret'),
+        secretOrKey: config.get('token:refreshSecret'),
         passReqToCallback: true
     }, function (req, jwtPayload, done) {
         User.findById(jwtPayload.userId, function (err, user) {
@@ -54,7 +54,7 @@ module.exports = function (passport) {
     }));
 
     passport.use('delete-all-refresh-token', new JwtStrategy({
-        secretOrKey: config.get('refresh_token_secret'),
+        secretOrKey: config.get('token:refreshSecret'),
         passReqToCallback: true
     }, function (req, jwtPayload, done) {
         User.findById(jwtPayload.userId, function (err, user) {

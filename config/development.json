@@ -1,8 +1,11 @@
 {
   "environment": "development",
-  "access_token_secret": "my access secret key",
-  "refresh_token_secret": "my refresh secret key",
-  "mongo_connection": "mongodb://localhost/tmp-base",
+  "token":{
+    "accessSecret":"my access secret key",
+    "refreshSecret":"my refresh secret key"
+  },
+  "mongodb": {
+    "connection": "mongodb://localhost/tmp-base"},
   "facebook": {
     "clientID": "854377151264607",
     "clientSecret": "dfa41c548a076c1165291beaf75a953e",
