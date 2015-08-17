@@ -17,14 +17,17 @@ require('./config/passport/oauth-passport')(passport);
 var app = express();
 // For Twitter only ---------------
 var session = require('express-session');
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' }));
+app.use(session({
+    secret: 'secretsessionfortwitteroauth1.0',
+    saveUninitialized: true,
+    resave: true
+}));
 // For Twitter only ---------------
 
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
 
 
 app.use(passport.initialize());
