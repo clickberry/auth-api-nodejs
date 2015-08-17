@@ -9,7 +9,7 @@ User registration
 | email    | Email       |
 | password | Password    |
 ### Response
-|            |                                                                    |
+|            |      Value                                                              |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 201                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
@@ -41,6 +41,17 @@ Update access & refresh tokens
 
 ## DELETE /signout
 User logout
+### Request
+| Header   | Value |
+|----------|-------------|
+| JWT     | [refreshToken] |
+### Response
+|            | Value     |
+|------------|-----------|
+| StatusCode | 200       |
+
+## DELETE /signoutall
+Delete all sessions for user
 ### Request
 | Header   | Value |
 |----------|-------------|
