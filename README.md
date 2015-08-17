@@ -44,7 +44,7 @@ User logout
 ### Request
 | Header   | Value |
 |----------|-------------|
-| JWT     | [refreshToken] |
+| authorization     | "JWT [refreshToken]" |
 ### Response
 |            | Value     |
 |------------|-----------|
@@ -55,7 +55,7 @@ Delete all sessions for user
 ### Request
 | Header   | Value |
 |----------|-------------|
-| JWT     | [refreshToken] |
+| authorization     | "JWT [refreshToken]" |
 ### Response
 |            | Value     |
 |------------|-----------|
