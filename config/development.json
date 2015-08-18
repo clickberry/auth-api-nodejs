@@ -1,33 +1,11 @@
 {
   "environment": "development",
   "hostName": "http://localhost",
-  "token":{
-    "accessSecret":"my access secret key",
-    "accessTimeout":"1800",
-    "refreshSecret":"my refresh secret key",
-    "refreshTimeout":"604800",
-    "maxSessions": "10"
+  "token": {
+    "accessSecret": "my access secret key",
+    "refreshSecret": "my refresh secret key"
   },
   "mongodb": {
-    "connection": "mongodb://localhost/tmp-base"},
-  "facebook": {
-    "clientID": "854377151264607",
-    "clientSecret": "dfa41c548a076c1165291beaf75a953e",
-    "callbackURL": "/auth/facebook/callback"
-  },
-  "twitter": {
-    "consumerKey": "0auZekHhAnpEFSPZsEz0rghNJ",
-    "consumerSecret": "FWXXELBoCHt2liu5fGqSSkMkKfhbETgn3jjLG3DcIJ7DgOblqo",
-    "callbackURL": "/auth/twitter/callback"
-  },
-  "google": {
-    "clientID": "185683082519-onshefuipn2mptq7d00fgmpa4gpve68f.apps.googleusercontent.com",
-    "clientSecret": "gWhoOH7hMOePG24iqmBjks7n",
-    "callbackURL": "/auth/google/callback"
-  },
-  "vk": {
-    "clientID": "5032382",
-    "clientSecret": "cHGVjlz0syYTWXSYNv7X",
-    "callbackURL": "/auth/vk/callback"
+    "connection": "mongodb://localhost/tmp-base"
   }
 }

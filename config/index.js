@@ -5,8 +5,8 @@ var configName = (process.env.NODE_ENV || "development") + '.json';
 
 config.argv()
     .env('_')
-    .file({file: path.join(__dirname, configName)})
-    .file('default', {file: path.join(__dirname, 'default.json')});
+    .file('default', {file: path.join(__dirname, 'default.json')})
+    .file({file: path.join(__dirname, configName)});
 
 var get = function (param) {
     return config.get(param.toUpperCase()) || config.get(param);

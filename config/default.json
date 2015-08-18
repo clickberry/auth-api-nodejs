@@ -1,3 +1,20 @@
 {
-  "port":"8080"
+  "port":"8080",
+  "token":{
+    "accessTimeout":"1800",
+    "refreshTimeout":"604800",
+    "maxSessions": "10"
+  },
+  "facebook": {
+    "callbackURL": "/auth/facebook/callback"
+  },
+  "twitter": {
+    "callbackURL": "/auth/twitter/callback"
+  },
+  "google": {
+    "callbackURL": "/auth/google/callback"
+  },
+  "vk": {
+    "callbackURL": "/auth/vk/callback"
+  }
 }
