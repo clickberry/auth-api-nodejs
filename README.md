@@ -31,6 +31,7 @@ User login
 User login or registration through facebook
 ### Response
 Facebook redirect to /auth/facebook/callback, that return:
+
 |            |      Value                                                              |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
@@ -40,6 +41,7 @@ Facebook redirect to /auth/facebook/callback, that return:
 User login or registration through twitter
 ### Response
 Twitter redirect to /auth/twitter/callback, that return:
+
 |            |      Value                                                              |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
@@ -49,6 +51,7 @@ Twitter redirect to /auth/twitter/callback, that return:
 User login or registration through google
 ### Response
 Google redirect to /auth/google/callback, that return:
+
 |            |      Value                                                              |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
@@ -58,6 +61,7 @@ Google redirect to /auth/google/callback, that return:
 User login or registration through vk
 ### Response
 Vk redirect to /auth/vk/callback, that return:
+
 |            |      Value                                                              |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
