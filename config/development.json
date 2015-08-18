@@ -1,5 +1,6 @@
 {
   "environment": "development",
+  "hostPort": "8080",
   "hostName": "http://localhost",
   "token": {
     "accessSecret": "my access secret key",

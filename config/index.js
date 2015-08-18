@@ -18,7 +18,7 @@ var getInt = function (param, defValue) {
 };
 
 var getUrl = function (param) {
-    var hostName = get('hostName') + ':' + get('port');
+    var hostName = get('hostName') + ':' + get('hostPort');
     var pathUrl = get(param);
     return hostName + pathUrl;
 };
