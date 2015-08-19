@@ -6,6 +6,10 @@ var updateUser = require('../middleware/update-user-mw');
 var router = express.Router();
 
 module.exports = function (passport) {
+    router.get('/heartbeat', function (req, res) {
+        res.send();
+    });
+
     router.get('/profile',
         passport.authenticate('access-token', {session: false}),
         function (req, res) {
