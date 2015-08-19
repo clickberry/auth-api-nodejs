@@ -18,7 +18,8 @@ var getInt = function (param, defValue) {
 };
 
 var getUrl = function (param) {
-    var hostName = get('hostPort') == 80 ? get('hostName') : get('hostName') + ':' + get('hostPort');
+    var url = get('protocol') + '://' + get('hostName');
+    var hostName = get('hostPort') == 80 ? url : url + ':' + get('hostPort');
     var pathUrl = get(param);
     return hostName + pathUrl;
 };

@@ -1,8 +1,9 @@
 {
-  "port":"8080",
-  "token":{
-    "accessTimeout":"1800",
-    "refreshTimeout":"604800",
+  "protocol": "http",
+  "port": "8080",
+  "token": {
+    "accessTimeout": "1800",
+    "refreshTimeout": "604800",
     "maxSessions": "10"
   },
   "facebook": {
