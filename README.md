@@ -4,11 +4,13 @@ Authentication micro-service on Node.js.
 # API
 ## POST /signup
 User registration.
+
 ### Request
 | Param    | Description |
 |----------|-------------|
 | email    | Email       |
 | password | Password    |
+
 ### Response
 |            |      Value                                                              |
 |------------|--------------------------------------------------------------------|
