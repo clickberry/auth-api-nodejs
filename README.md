@@ -19,11 +19,13 @@ User registration.
 
 ## POST /signin
 User login.
+
 ### Request
 | Body Param    | Description |
 |----------|-------------|
 | email    | Email       |
 | password | Password    |
+
 ### Response
 |            |  Value                                                                  |
 |------------|--------------------------------------------------------------------|
@@ -32,6 +34,7 @@ User login.
 
 ## POST /auth/facebook
 User login or registration through facebook.
+
 ### Response
 Facebook redirect to /auth/facebook/callback, that return:
 
@@ -40,8 +43,10 @@ Facebook redirect to /auth/facebook/callback, that return:
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
+
 ## POST /auth/twitter
 User login or registration through twitter.
+
 ### Response
 Twitter redirect to /auth/twitter/callback, that return:
 
