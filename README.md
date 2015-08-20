@@ -2,7 +2,7 @@
 Authentication micro-service on Node.js.
 # API
 ## POST /signup
-User registration
+User registration.
 ### Request
 | Param    | Description |
 |----------|-------------|
@@ -15,7 +15,7 @@ User registration
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## POST /signin
-User login
+User login.
 ### Request
 | Body Param    | Description |
 |----------|-------------|
@@ -28,7 +28,7 @@ User login
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## POST /auth/facebook
-User login or registration through facebook
+User login or registration through facebook.
 ### Response
 Facebook redirect to /auth/facebook/callback, that return:
 
@@ -38,7 +38,7 @@ Facebook redirect to /auth/facebook/callback, that return:
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## POST /auth/twitter
-User login or registration through twitter
+User login or registration through twitter.
 ### Response
 Twitter redirect to /auth/twitter/callback, that return:
 
@@ -48,7 +48,7 @@ Twitter redirect to /auth/twitter/callback, that return:
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## POST /auth/google
-User login or registration through google
+User login or registration through google.
 ### Response
 Google redirect to /auth/google/callback, that return:
 
@@ -58,7 +58,7 @@ Google redirect to /auth/google/callback, that return:
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## POST /auth/vk
-User login or registration through vk
+User login or registration through vk.
 ### Response
 Vk redirect to /auth/vk/callback, that return:
 
@@ -68,7 +68,7 @@ Vk redirect to /auth/vk/callback, that return:
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## GET /refresh
-Update access & refresh tokens
+Update access & refresh tokens.
 ### Request
 | Header   | Value |
 |----------|-------------|
@@ -80,7 +80,7 @@ Update access & refresh tokens
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## DELETE /signout
-User logout
+User logout.
 ### Request
 | Header   | Value |
 |----------|-------------|
@@ -91,7 +91,7 @@ User logout
 | StatusCode | 200       |
 
 ## DELETE /signoutall
-Delete all sessions for user
+Delete all sessions for user.
 ### Request
 | Header   | Value |
 |----------|-------------|
