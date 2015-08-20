@@ -7,29 +7,36 @@ var userSchema = mongoose.Schema({
         email: String,
         password: String
     },
-    facebook: {
+    memberships: [{
         id: String,
+        provider: String,
         token: String,
         email: String,
         name: String
-    },
-    twitter: {
-        id: String,
-        token: String,
-        userName: String,
-        displayName: String
-    },
-    google: {
-        id: String,
-        token: String,
-        email: String,
-        name: String
-    },
-    vk: {
-        id: String,
-        token: String,
-        name: String
-    }
+    }]
+    //facebook: {
+    //    id: String,
+    //    token: String,
+    //    email: String,
+    //    name: String
+    //},
+    //twitter: {
+    //    id: String,
+    //    token: String,
+    //    userName: String,
+    //    displayName: String
+    //},
+    //google: {
+    //    id: String,
+    //    token: String,
+    //    email: String,
+    //    name: String
+    //},
+    //vk: {
+    //    id: String,
+    //    token: String,
+    //    name: String
+    //}
 });
 
 userSchema.methods.generateHash = function (password, callback) {

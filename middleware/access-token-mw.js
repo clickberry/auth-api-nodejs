@@ -9,6 +9,20 @@ exports.create = function (req, res, next) {
     next();
 };
 
+exports.verify = function (tokenName) {
+    return function (req, res, next) {
+        jwt.verify(req.body[tokenName], config.get('token:accessSecret'), function (err, payloud) {
+            if (err)
+                return next(err);
+
+            req.tokens = req.tokens || {};
+            req.tokens[tokenName] = payloud;
+
+            next();
+        });
+    };
+};
+
 function createAccessPayload(user) {
     return {
         userId: user._id

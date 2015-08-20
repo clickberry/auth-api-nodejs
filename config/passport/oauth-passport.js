@@ -12,21 +12,8 @@ module.exports = function (passport) {
         clientSecret: config.get('facebook:clientSecret'),
         callbackURL: config.getUrl('facebook:callbackURL')
     }, function (token, refreshToken, profile, done) {
-        User.findOne({'facebook.id': profile.id}, function (err, user) {
-            if (err)
-                return done(err);
-
-            if (user) {
-                return done(null, user);
-            } else {
-                var newUser = new User();
-                newUser.facebook.id = profile.id;
-                newUser.facebook.token = token;
-                newUser.facebook.name = profile.displayName;
-                newUser.facebook.email = profile.emails && profile.emails[0].value;
-
-                done(null, newUser);
-            }
+        getUser(profile, token, function (err, user) {
+            done(err, user);
         });
     }));
 
@@ -35,21 +22,8 @@ module.exports = function (passport) {
         consumerSecret: config.get('twitter:consumerSecret'),
         callbackURL: config.getUrl('twitter:callbackURL')
     }, function (token, refreshToken, profile, done) {
-        User.findOne({'twitter.id': profile.id}, function (err, user) {
-            if (err)
-                return done(err);
-
-            if (user) {
-                return done(null, user);
-            } else {
-                var newUser = new User();
-                newUser.twitter.id = profile.id;
-                newUser.twitter.token = token;
-                newUser.twitter.userName = profile.username;
-                newUser.twitter.displayName = profile.displayName;
-
-                done(null, newUser);
-            }
+        getUser(profile, token, function (err, user) {
+            done(err, user);
         });
     }));
 
@@ -58,22 +32,9 @@ module.exports = function (passport) {
             clientSecret: config.get('google:clientSecret'),
             callbackURL: config.getUrl('google:callbackURL')
         },
-        function(token, tokenSecret, profile, done) {
-            User.findOne({'google.id': profile.id}, function (err, user) {
-                if (err)
-                    return done(err);
-
-                if (user) {
-                    return done(null, user);
-                } else {
-                    var newUser = new User();
-                    newUser.google.id = profile.id;
-                    newUser.google.token = token;
-                    newUser.google.name = profile.displayName;
-                    newUser.google.email = profile.emails && profile.emails[0].value;
-
-                    done(null, newUser);
-                }
+        function (token, tokenSecret, profile, done) {
+            getUser(profile, token, function (err, user) {
+                done(err, user);
             });
         }
     ));
@@ -83,22 +44,40 @@ module.exports = function (passport) {
             clientSecret: config.get('vk:clientSecret'),
             callbackURL: config.getUrl('vk:callbackURL')
         },
-        function(token, tokenSecret, profile, done) {
-            User.findOne({'vk.id': profile.id}, function (err, user) {
-                if (err)
-                    return done(err);
-
-                if (user) {
-                    return done(null, user);
-                } else {
-                    var newUser = new User();
-                    newUser.vk.id = profile.id;
-                    newUser.vk.token = token;
-                    newUser.vk.name = profile.displayName;
-
-                    done(null, newUser);
-                }
+        function (token, tokenSecret, profile, done) {
+            getUser(profile, token, function (err, user) {
+                done(err, user);
             });
         }
     ));
+
+    function getUser(profile, token, callback) {
+        User.findOne({'memberships.id': profile.id, 'memberships.provider': profile.provider}, function (err, user) {
+            if (err) {
+                callback(err);
+            }
+
+            if (!user) {
+                user = createUser(profile, token);
+            }
+
+            callback(err, user);
+        });
+    }
+
+    function createUser(profile, token) {
+        var newUser = new User();
+
+        var membership = {
+            id: profile.id,
+            provider: profile.provider,
+            token: token,
+            name: profile.displayName,
+            email: profile.emails && profile.emails[0].value
+        };
+
+        newUser.memberships.push(membership);
+
+        return newUser;
+    }
 };

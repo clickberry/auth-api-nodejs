@@ -51,20 +51,20 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.send({
             message: err.message,
-            error: err
+            error: err.stack
+        });
+    });
+}else {
+// production error handler
+// no stacktraces leaked to user
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.send({
+            message: err.message,
+            error: {}
         });
     });
 }
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.send({
-        message: err.message,
-        error: {}
-    });
-});
 
 
 module.exports = app;

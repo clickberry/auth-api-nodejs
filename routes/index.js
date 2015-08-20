@@ -1,7 +1,8 @@
 var express = require('express');
 var refreshToken = require('../middleware/refresh-token-mw');
 var accessToken = require('../middleware/access-token-mw');
-var updateUser = require('../middleware/update-user-mw');
+var userMw = require('../middleware/user-mw');
+var userServices = require('../lib/user-services');
 
 var router = express.Router();
 
@@ -28,7 +29,7 @@ module.exports = function (passport) {
         passport.authenticate('facebook', {session: false}),
         refreshToken.create,
         accessToken.create,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send({
             accessToken: res.locals.accessToken,
@@ -45,7 +46,7 @@ module.exports = function (passport) {
         passport.authenticate('twitter', {session: false}),
         refreshToken.create,
         accessToken.create,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send({
             accessToken: res.locals.accessToken,
@@ -63,7 +64,7 @@ module.exports = function (passport) {
         passport.authenticate('google', {session: false}),
         refreshToken.create,
         accessToken.create,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send({
             accessToken: res.locals.accessToken,
@@ -81,7 +82,7 @@ module.exports = function (passport) {
         passport.authenticate('vkontakte', {session: false}),
         refreshToken.create,
         accessToken.create,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send({
             accessToken: res.locals.accessToken,
@@ -95,7 +96,7 @@ module.exports = function (passport) {
         refreshToken.remove,
         refreshToken.create,
         accessToken.create,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send({
             accessToken: res.locals.accessToken,
@@ -107,7 +108,7 @@ module.exports = function (passport) {
         passport.authenticate('local-signup', {session: false}),
         refreshToken.create,
         accessToken.create,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.status(201);
         res.send({
@@ -120,7 +121,7 @@ module.exports = function (passport) {
         passport.authenticate('local-signin', {session: false}),
         refreshToken.create,
         accessToken.create,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send({
             accessToken: res.locals.accessToken,
@@ -131,7 +132,7 @@ module.exports = function (passport) {
     router.delete('/signout', [
         passport.authenticate('delete-refresh-token', {session: false}),
         refreshToken.remove,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send(200);
     });
@@ -139,9 +140,21 @@ module.exports = function (passport) {
     router.delete('/signoutall', [
         passport.authenticate('delete-all-refresh-token', {session: false}),
         refreshToken.removeAll,
-        updateUser
+        userMw.update
     ], function (req, res) {
         res.send(200);
+    });
+
+    router.post('/merge', [
+        accessToken.verify('token1'),
+        accessToken.verify('token2')
+    ], function (req, res, next) {
+        userServices.mergeAccounts(req.tokens.token1.userId, req.tokens.token2.userId, function (err) {
+            if (err)
+                return next(err);
+
+            res.send(200);
+        });
     });
 
     return router;
@@ -151,5 +164,5 @@ function mapUser(user) {
     return {
         id: user._id,
         email: user.local.email
-    }
+    };
 }
