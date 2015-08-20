@@ -1,5 +1,5 @@
 # auth-api-nodejs
-Authentication micro-service on nodejs
+Authentication micro-service on Node.js.
 # API
 ## POST /signup
 User registration
