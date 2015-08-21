@@ -108,3 +108,41 @@ Delete all sessions for user.
 |            | Value     |
 |------------|-----------|
 | StatusCode | 200       |
+
+## POST /merge
+Merge two accaunts.
+### Request
+| Param    | Description |
+|----------|-------------|
+| token1    | Access token first account |
+| token2 | Access token second account    |
+
+## DELETE /unmerge
+Unmerge account
+### Request
+| Header   | Value |
+|----------|-------------|
+| authorization     | "JWT [accessToken]" |
+
+| Param    | Description |
+|----------|-------------|
+| provider    | Provider name ('facebook', 'google', etc.) |
+| id | Id from provider    |
+### Response
+|            | Value     |
+|------------|-----------|
+| StatusCode | 200       |
+
+## GET /profile
+Get user info.
+### Request
+| Header   | Value |
+|----------|-------------|
+| authorization     | "JWT [accessToken]" |
+
+### Response
+|            | Value     |
+|------------|-----------|
+| StatusCode | 200       |
+
+Return UserId, email(if exist), list of memberships(if exist).
