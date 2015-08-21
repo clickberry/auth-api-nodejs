@@ -16,8 +16,12 @@ module.exports = function (passport) {
     router.get('/profile',
         passport.authenticate('access-token', {session: false}),
         function (req, res) {
-            var user = mapUser(req.user);
-            res.send(user);
+            var user = req.user;
+            res.send({
+                id: user.id,
+                email: user.local.email,
+                memberships: user.memberships
+            });
         }
     );
 
