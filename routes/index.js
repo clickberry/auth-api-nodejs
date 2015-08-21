@@ -14,8 +14,9 @@ module.exports = function (passport) {
     router.get('/profile',
         passport.authenticate('access-token', {session: false}),
         function (req, res) {
-            var user = mapUser(req.user);
-            res.send(user);
+            //var user = mapUser(req.user);
+            //res.send(user);
+            res.send({id: req.user.id});
         }
     );
 
@@ -149,13 +150,31 @@ module.exports = function (passport) {
         accessToken.verify('token1'),
         accessToken.verify('token2')
     ], function (req, res, next) {
-        userServices.mergeAccounts(req.tokens.token1.userId, req.tokens.token2.userId, function (err) {
+        var toUserId = req.tokens.token1.userId;
+        var fromUserId = req.tokens.token2.userId;
+
+        userServices.mergeAccounts(toUserId, fromUserId, function (err) {
             if (err)
                 return next(err);
 
             res.send(200);
         });
     });
+
+    router.delete('/unmerge',
+        passport.authenticate('access-token', {session: false}),
+        function (req, res, next) {
+            var userId = req.user.id;
+            var provider = req.body.provider;
+            var id = req.body.id;
+
+            userServices.unmergeAccount(userId, provider, id, function (err) {
+                if (err)
+                    return next(err);
+
+                res.send(200);
+            });
+        });
 
     return router;
 };
