@@ -146,3 +146,16 @@ Get user info.
 | StatusCode | 200       |
 
 Return UserId, email(if exist), list of memberships(if exist).
+
+## DELETE /delete
+Delete user.
+### Request
+| Header   | Value |
+|----------|-------------|
+| authorization     | "JWT [accessToken]" |
+
+### Response
+|            | Value     |
+|------------|-----------|
+| StatusCode | 200       |
+
