@@ -3,6 +3,8 @@ var refreshToken = require('../middleware/refresh-token-mw');
 var accessToken = require('../middleware/access-token-mw');
 var userMw = require('../middleware/user-mw');
 var userServices = require('../lib/user-services');
+var Bus = require('../lib/bus-service');
+var bus = new Bus({});
 
 var router = express.Router();
 
@@ -31,6 +33,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
+        publishSocialAuth(req);
         res.send({
             accessToken: res.locals.accessToken,
             refreshToken: res.locals.refreshToken
@@ -48,6 +51,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
+        publishSocialAuth(req);
         res.send({
             accessToken: res.locals.accessToken,
             refreshToken: res.locals.refreshToken
@@ -66,6 +70,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
+        publishSocialAuth(req);
         res.send({
             accessToken: res.locals.accessToken,
             refreshToken: res.locals.refreshToken
@@ -84,6 +89,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
+        publishSocialAuth(req);
         res.send({
             accessToken: res.locals.accessToken,
             refreshToken: res.locals.refreshToken
@@ -110,6 +116,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
+        bus.publishSignupUser(mapUser(req.user));
         res.status(201);
         res.send({
             accessToken: res.locals.accessToken,
@@ -123,6 +130,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
+        bus.publishSigninUser(mapUser(user));
         res.send({
             accessToken: res.locals.accessToken,
             refreshToken: res.locals.refreshToken
@@ -156,6 +164,7 @@ module.exports = function (passport) {
             if (err)
                 return next(err);
 
+            bus.publishMergeUser({toUserId: toUserId, fromUserId: fromUserId});
             res.send(200);
         });
     });
@@ -171,6 +180,7 @@ module.exports = function (passport) {
                 if (err)
                     return next(err);
 
+                bus.publishUnmergeUser({userId: userId, provider: provider, id: id});
                 res.send(200);
             });
         });
@@ -185,6 +195,7 @@ module.exports = function (passport) {
                 if (err)
                     return next(err);
 
+                bus.publishDeleteUser({userId: userId});
                 res.send(200);
             });
         });
@@ -197,4 +208,14 @@ function mapUser(user) {
         id: user._id,
         email: user.local.email
     };
+}
+
+function publishSocialAuth(req) {
+    var message = {userId: req.user._id, membership: req.authData.membership};
+    if (req.authData.isNewUser) {
+        bus.publishSignupUser(message)
+    }
+    else {
+        bus.publishSigninUser(message);
+    }
 }

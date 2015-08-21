@@ -10,6 +10,7 @@
     "body-parser": "~1.12.4",
     "bootstrap": "^3.3.5",
     "debug": "~2.2.0",
+    "events": "^1.0.2",
     "express": "~4.12.4",
     "express-session": "^1.11.3",
     "jsonwebtoken": "^5.0.4",
@@ -23,6 +24,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.3",
     "passport-vkontakte": "^0.4.0",
-    "shortid": "^2.2.2"
+    "shortid": "^2.2.2",
+    "util": "^0.10.3"
   }
 }

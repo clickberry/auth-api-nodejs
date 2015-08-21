@@ -10,9 +10,11 @@ module.exports = function (passport) {
     passport.use(new FacebookStrategy({
         clientID: config.get('facebook:clientID'),
         clientSecret: config.get('facebook:clientSecret'),
-        callbackURL: config.getUrl('facebook:callbackURL')
-    }, function (token, refreshToken, profile, done) {
-        getUser(profile, token, function (err, user) {
+        callbackURL: config.getUrl('facebook:callbackURL'),
+        passReqToCallback: true
+    }, function (req, token, refreshToken, profile, done) {
+        getUser(profile, token, function (err, user, authData) {
+            req.authData = authData;
             done(err, user);
         });
     }));
@@ -20,9 +22,11 @@ module.exports = function (passport) {
     passport.use(new TwitterStrategy({
         consumerKey: config.get('twitter:consumerKey'),
         consumerSecret: config.get('twitter:consumerSecret'),
-        callbackURL: config.getUrl('twitter:callbackURL')
-    }, function (token, refreshToken, profile, done) {
-        getUser(profile, token, function (err, user) {
+        callbackURL: config.getUrl('twitter:callbackURL'),
+        passReqToCallback: true
+    }, function (req, token, refreshToken, profile, done) {
+        getUser(profile, token, function (err, user, authData) {
+            req.authData = authData;
             done(err, user);
         });
     }));
@@ -30,10 +34,12 @@ module.exports = function (passport) {
     passport.use(new GoogleStrategy({
             clientID: config.get('google:clientID'),
             clientSecret: config.get('google:clientSecret'),
-            callbackURL: config.getUrl('google:callbackURL')
+            callbackURL: config.getUrl('google:callbackURL'),
+            passReqToCallback: true
         },
-        function (token, tokenSecret, profile, done) {
-            getUser(profile, token, function (err, user) {
+        function (req, token, tokenSecret, profile, done) {
+            getUser(profile, token, function (err, user, authData) {
+                req.authData = authData;
                 done(err, user);
             });
         }
@@ -42,10 +48,12 @@ module.exports = function (passport) {
     passport.use(new VKontakteStrategy({
             clientID: config.get('vk:clientID'),
             clientSecret: config.get('vk:clientSecret'),
-            callbackURL: config.getUrl('vk:callbackURL')
+            callbackURL: config.getUrl('vk:callbackURL'),
+            passReqToCallback: true
         },
-        function (token, tokenSecret, profile, done) {
-            getUser(profile, token, function (err, user) {
+        function (req, token, tokenSecret, profile, done) {
+            getUser(profile, token, function (err, user, authData) {
+                req.authData = authData;
                 done(err, user);
             });
         }
@@ -57,17 +65,27 @@ module.exports = function (passport) {
                 callback(err);
             }
 
+            var authData = {};
+            var membership = authData.membership = createMembership(profile, token);
+            authData.isNewUser = false;
+
             if (!user) {
-                user = createUser(profile, token);
+                user = createUser(membership);
+                authData.isNewUser = true;
             }
 
-            callback(err, user);
+            callback(err, user, authData);
         });
     }
 
-    function createUser(profile, token) {
+    function createUser(membership) {
         var newUser = new User();
+        newUser.memberships.push(membership);
 
+        return newUser;
+    }
+
+    function createMembership(profile, token) {
         var membership = {
             id: profile.id,
             provider: profile.provider,
@@ -75,9 +93,6 @@ module.exports = function (passport) {
             name: profile.displayName,
             email: profile.emails && profile.emails[0].value
         };
-
-        newUser.memberships.push(membership);
-
-        return newUser;
+        return membership;
     }
 };
