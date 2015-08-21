@@ -7,17 +7,16 @@ module.exports = function (passport) {
     passport.use('access-token', new JwtStrategy({
         secretOrKey: config.get('token:accessSecret')
     }, function (jwtPayload, done) {
-        done(null, {id:jwtPayload.userId});
-        //User.findById(jwtPayload.userId, function (err, user) {
-        //    if (err) {
-        //        return done(err, false);
-        //    }
-        //    if (user) {
-        //        done(null, user);
-        //    } else {
-        //        done(null, false);
-        //    }
-        //});
+        User.findById(jwtPayload.userId, function (err, user) {
+            if (err) {
+                return done(err, false);
+            }
+            if (user) {
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        });
     }));
 
     passport.use('refresh-token', new JwtStrategy({

@@ -14,9 +14,8 @@ module.exports = function (passport) {
     router.get('/profile',
         passport.authenticate('access-token', {session: false}),
         function (req, res) {
-            //var user = mapUser(req.user);
-            //res.send(user);
-            res.send({id: req.user.id});
+            var user = mapUser(req.user);
+            res.send(user);
         }
     );
 
@@ -169,6 +168,20 @@ module.exports = function (passport) {
             var id = req.body.id;
 
             userServices.unmergeAccount(userId, provider, id, function (err) {
+                if (err)
+                    return next(err);
+
+                res.send(200);
+            });
+        });
+
+
+    router.delete('/delete',
+        passport.authenticate('access-token', {session: false}),
+        function (req, res, next) {
+            var userId = req.user._id;
+
+            userServices.deleteAccount(userId, function (err) {
                 if (err)
                     return next(err);
 
