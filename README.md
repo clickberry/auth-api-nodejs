@@ -1,4 +1,4 @@
-# auth-api-nodejs
+# Auth API
 Authentication micro-service on Node.js.
 
 # API
