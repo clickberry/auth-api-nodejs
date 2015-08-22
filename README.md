@@ -57,6 +57,7 @@ Twitter redirect to /auth/twitter/callback, that return:
 
 ## GET /auth/google
 User login or registration through google.
+
 ### Response
 Google redirect to /auth/google/callback, that return:
 
@@ -67,6 +68,7 @@ Google redirect to /auth/google/callback, that return:
 
 ## GET /auth/vk
 User login or registration through vk.
+
 ### Response
 Vk redirect to /auth/vk/callback, that return:
 
@@ -77,10 +79,12 @@ Vk redirect to /auth/vk/callback, that return:
 
 ## GET /refresh
 Update access & refresh tokens.
+
 ### Request
 | Header   | Value |
 |----------|-------------|
 | authorization     | "JWT [refreshToken]" |
+
 ### Response
 |            |  Value                                                                  |
 |------------|--------------------------------------------------------------------|
@@ -89,6 +93,7 @@ Update access & refresh tokens.
 
 ## DELETE /signout
 User logout.
+
 ### Request
 | Header   | Value |
 |----------|-------------|
@@ -100,6 +105,7 @@ User logout.
 
 ## DELETE /signoutall
 Delete all sessions for user.
+
 ### Request
 | Header   | Value |
 |----------|-------------|
@@ -111,6 +117,7 @@ Delete all sessions for user.
 
 ## POST /merge
 Merge two accaunts.
+
 ### Request
 | Param    | Description |
 |----------|-------------|
@@ -118,7 +125,8 @@ Merge two accaunts.
 | token2 | Access token second account    |
 
 ## DELETE /unmerge
-Unmerge account
+Unmerge account.
+
 ### Request
 | Header   | Value |
 |----------|-------------|
@@ -135,6 +143,7 @@ Unmerge account
 
 ## GET /profile
 Get user info.
+
 ### Request
 | Header   | Value |
 |----------|-------------|
@@ -149,6 +158,7 @@ Return UserId, email(if exist), list of memberships(if exist).
 
 ## DELETE /delete
 Delete user.
+
 ### Request
 | Header   | Value |
 |----------|-------------|
