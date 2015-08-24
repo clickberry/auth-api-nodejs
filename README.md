@@ -1,4 +1,4 @@
-# Auth API
+# Dockerized Auth API
 Authentication micro-service on Node.js.
 
 # API
