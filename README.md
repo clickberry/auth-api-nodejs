@@ -4,6 +4,25 @@ Authentication micro-service on Node.js.
 # Environment Variables
 The service should be properly configured with following environment variables.
 
+Key | Value | Description
+:-- | :-- | :-- 
+HOSTNAME | auth.clbr.ws | Callback hostname.
+HOSTPORT | 80 | Callback host port.
+MONGODB_CONNECTION | mongodb://mongo_host:mongo_port/mongo_db_name | MongoDB connection string.
+TOKEN_ACCESSSECRET | MDdDRDhBOD*** | Access token secret.
+TOKEN_REFRESHSECRET | NUQzNTYwND*** | Refresh token secret.
+TWITTER_CONSUMERKEY | YOUGHA9Fk5*** | Twitter consumer key.
+TWITTER_CONSUMERSECRET | XSAxmecNLh*** | Twitter consumer secret.
+GOOGLE_CLIENTID | 1856830825*** | Google client id.
+GOOGLE_CLIENTSECRET | KhFDFfy91k*** | Google client secret.
+VK_CLIENTID | 503*** | VK client id.
+VK_CLIENTSECRET | XIYUHNUZXX*** | VK client secret.
+FACEBOOK_CLIENTID | 9357215664*** | Facebook client id.
+FACEBOOK_CLIENTSECRET | 0dd6dd8d74*** | Facebook client secret.
+
+
+
+
 # Events
 The service generates events to the Bus (messaging service) in response to API requests.
 
