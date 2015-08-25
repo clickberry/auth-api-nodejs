@@ -12,7 +12,7 @@ Key | Value | Description
 :-- | :-- | :-- 
 HOSTNAME | auth.clbr.ws | Callback hostname.
 HOSTPORT | 80 | Callback host port.
-MONGODB_CONNECTION | mongodb://mongo_host:mongo_port/mongo_db_name | MongoDB connection string.
+MONGODB_CONNECTION | mongodb://mongo_host:mongo_port/auth | MongoDB connection string.
 TOKEN_ACCESSSECRET | MDdDRDhBOD*** | Access token secret.
 TOKEN_REFRESHSECRET | NUQzNTYwND*** | Refresh token secret.
 TWITTER_CONSUMERKEY | YOUGHA9Fk5*** | Twitter consumer key.
