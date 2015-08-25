@@ -2,6 +2,7 @@
 Authentication micro-service on Node.js.
 
 # API
+
 ## POST /signup
 User registration.
 
@@ -12,7 +13,7 @@ User registration.
 | password | Password    |
 
 ### Response
-|            |      Value                                                              |
+| HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 201                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
