@@ -1,6 +1,10 @@
 # Dockerized Auth API
 Authentication micro-service on Node.js.
 
+* [Environment Variables](#environment-variables)
+* [Events](#events)
+* [API](#api)
+
 # Environment Variables
 The service should be properly configured with following environment variables.
 
