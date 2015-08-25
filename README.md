@@ -40,6 +40,8 @@ Signs in user by email.
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
+
+
 ### GET /auth/facebook
 Registers or signs in user via Facebook.
 
