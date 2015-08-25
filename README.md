@@ -164,7 +164,7 @@ Gets user info.
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
-| Body       | { id: user_id, email: user_email, memberships: [] } |
+| Body       | { "id": *user_id*, "email": *user_email*, "memberships": [] } |
 
 ### DELETE /delete
 Deletes user account.
