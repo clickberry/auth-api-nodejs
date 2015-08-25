@@ -1,40 +1,40 @@
 # Dockerized Auth API
 Authentication micro-service on Node.js.
 
-## Environment Variables
+# Environment Variables
 The service should be properly configured with following environment variables.
 
-## Events
+# Events
 The service generates events to the Bus (messaging service) in response to API requests.
 
-## API
+# API
 
-### POST /signup
+## POST /signup
 Registers user by email.
 
-#### Request
+### Request
 | Param    | Description |
 |----------|-------------|
 | email    | Email       |
 | password | Password    |
 
-#### Response
+### Response
 | HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 201                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 
-### POST /signin
+## POST /signin
 Signs in user by email.
 
-#### Request
+### Request
 | Body Param    | Description |
 |----------|-------------|
 | email    | Email       |
 | password | Password    |
 
-#### Response
+### Response
 | HTTP       |  Value                                                             |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
@@ -54,10 +54,10 @@ Facebook redirects to /auth/facebook/callback, that returns:
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 
-### GET /auth/twitter
+## GET /auth/twitter
 Registers or signs in user via Twitter.
 
-#### Response
+### Response
 Twitter redirects to /auth/twitter/callback, that returns:
 
 | HTTP       |      Value                                                         |
@@ -65,10 +65,10 @@ Twitter redirects to /auth/twitter/callback, that returns:
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-### GET /auth/google
+## GET /auth/google
 Registers or signs in user via Google.
 
-#### Response
+### Response
 Google redirects to /auth/google/callback, that returns:
 
 | HTTP       |      Value                                                         |
@@ -76,10 +76,10 @@ Google redirects to /auth/google/callback, that returns:
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-### GET /auth/vk
+## GET /auth/vk
 Registers or signs in user via Vk.
 
-#### Response
+### Response
 Vk redirects to /auth/vk/callback, that returns:
 
 | HTTP       |      Value                                                         |
@@ -87,59 +87,59 @@ Vk redirects to /auth/vk/callback, that returns:
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-### GET /refresh
+## GET /refresh
 Updates access & refresh tokens.
 
-#### Request
+### Request
 | Header   | Value |
 |----------|-------------|
 | Authorization     | "JWT [refreshToken]" |
 
-#### Response
+### Response
 | HTTP       |  Value                                                             |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-### DELETE /signout
+## DELETE /signout
 Sign outs current user.
 
-#### Request
+### Request
 | Header   | Value |
 |----------|-------------|
 | Authorization     | "JWT [refreshToken]" |
 
-#### Response
+### Response
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 
-### DELETE /signoutall
+## DELETE /signoutall
 Deletes all sessions for current user.
 
-#### Request
+### Request
 | Header   | Value |
 |----------|-------------|
 | Authorization     | "JWT [refreshToken]" |
 
-#### Response
+### Response
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 
-### POST /merge
+## POST /merge
 Merges two accaunts.
 
-#### Request
+### Request
 | Param    | Description |
 |----------|-------------|
 | token1   | Access token first account |
 | token2   | Access token second account |
 
-### DELETE /unmerge
+## DELETE /unmerge
 Unmerges social account.
 
-#### Request
+### Request
 | Header   | Value |
 |----------|-------------|
 | Authorization     | "JWT [accessToken]" |
@@ -149,34 +149,34 @@ Unmerges social account.
 | provider    | Provider name ('facebook', 'google', etc.) |
 | id | Id from provider    |
 
-#### Response
+### Response
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 
-### GET /profile
+## GET /profile
 Gets user info.
 
-#### Request
+### Request
 | Header   | Value |
 |----------|-------------|
 | Authorization     | "JWT [accessToken]" |
 
-#### Response
+### Response
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 | Body       | { "id": *user_id*, "email": *user_email*, "memberships": [] } |
 
-### DELETE /delete
+## DELETE /delete
 Deletes user account.
 
-#### Request
+### Request
 | Header   | Value |
 |----------|-------------|
 | authorization     | "JWT [accessToken]" |
 
-#### Response
+### Response
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
