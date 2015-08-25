@@ -10,7 +10,7 @@ The service generates events to the Bus (messaging service) in response to API r
 ## API
 
 ### POST /signup
-User registration.
+Registers user by email.
 
 #### Request
 | Param    | Description |
@@ -25,155 +25,157 @@ User registration.
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 
-## POST /signin
-User login.
+### POST /signin
+Signs in user by email.
 
-### Request
+#### Request
 | Body Param    | Description |
 |----------|-------------|
 | email    | Email       |
 | password | Password    |
 
-### Response
-|            |  Value                                                                  |
+#### Response
+| HTTP       |  Value                                                             |
 |------------|--------------------------------------------------------------------|
-| StatusCode | 200                                                               |
+| StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-## GET /auth/facebook
-User login or registration through facebook.
+### GET /auth/facebook
+Registers or signs in user via Facebook.
 
-### Response
-Facebook redirect to /auth/facebook/callback, that return:
+#### Response
+Facebook redirects to /auth/facebook/callback, that returns:
 
-|            |      Value                                                              |
+| HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 
-## GET /auth/twitter
-User login or registration through twitter.
+### GET /auth/twitter
+Registers or signs in user via Twitter.
 
-### Response
-Twitter redirect to /auth/twitter/callback, that return:
+#### Response
+Twitter redirects to /auth/twitter/callback, that returns:
 
-|            |      Value                                                              |
+| HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-## GET /auth/google
-User login or registration through google.
+### GET /auth/google
+Registers or signs in user via Google.
 
-### Response
-Google redirect to /auth/google/callback, that return:
+#### Response
+Google redirects to /auth/google/callback, that returns:
 
-|            |      Value                                                              |
+| HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-## GET /auth/vk
-User login or registration through vk.
+### GET /auth/vk
+Registers or signs in user via Vk.
 
-### Response
-Vk redirect to /auth/vk/callback, that return:
+#### Response
+Vk redirects to /auth/vk/callback, that returns:
 
-|            |      Value                                                              |
+| HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-## GET /refresh
-Update access & refresh tokens.
+### GET /refresh
+Updates access & refresh tokens.
 
-### Request
+#### Request
 | Header   | Value |
 |----------|-------------|
-| authorization     | "JWT [refreshToken]" |
+| Authorization     | "JWT [refreshToken]" |
 
-### Response
-|            |  Value                                                                  |
+#### Response
+| HTTP       |  Value                                                             |
 |------------|--------------------------------------------------------------------|
-| StatusCode | 200                                                               |
+| StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-## DELETE /signout
-User logout.
+### DELETE /signout
+Sign outs current user.
 
-### Request
+#### Request
 | Header   | Value |
 |----------|-------------|
-| authorization     | "JWT [refreshToken]" |
-### Response
-|            | Value     |
+| Authorization     | "JWT [refreshToken]" |
+
+#### Response
+| HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 
-## DELETE /signoutall
-Delete all sessions for user.
+### DELETE /signoutall
+Deletes all sessions for current user.
 
-### Request
+#### Request
 | Header   | Value |
 |----------|-------------|
-| authorization     | "JWT [refreshToken]" |
-### Response
-|            | Value     |
+| Authorization     | "JWT [refreshToken]" |
+
+#### Response
+| HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 
-## POST /merge
-Merge two accaunts.
+### POST /merge
+Merges two accaunts.
 
-### Request
+#### Request
 | Param    | Description |
 |----------|-------------|
-| token1    | Access token first account |
-| token2 | Access token second account    |
+| token1   | Access token first account |
+| token2   | Access token second account |
 
-## DELETE /unmerge
-Unmerge account.
+### DELETE /unmerge
+Unmerges social account.
 
-### Request
+#### Request
 | Header   | Value |
 |----------|-------------|
-| authorization     | "JWT [accessToken]" |
+| Authorization     | "JWT [accessToken]" |
 
 | Param    | Description |
 |----------|-------------|
 | provider    | Provider name ('facebook', 'google', etc.) |
 | id | Id from provider    |
-### Response
-|            | Value     |
+
+#### Response
+| HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 
-## GET /profile
-Get user info.
+### GET /profile
+Gets user info.
 
-### Request
+#### Request
+| Header   | Value |
+|----------|-------------|
+| Authorization     | "JWT [accessToken]" |
+
+#### Response
+| HTTP       | Value     |
+|------------|-----------|
+| StatusCode | 200       |
+| Body       | { id: user_id, email: user_email, memberships: [] } |
+
+### DELETE /delete
+Deletes user account.
+
+#### Request
 | Header   | Value |
 |----------|-------------|
 | authorization     | "JWT [accessToken]" |
 
-### Response
-|            | Value     |
-|------------|-----------|
-| StatusCode | 200       |
-
-Return UserId, email(if exist), list of memberships(if exist).
-
-## DELETE /delete
-Delete user.
-
-### Request
-| Header   | Value |
-|----------|-------------|
-| authorization     | "JWT [accessToken]" |
-
-### Response
-|            | Value     |
+#### Response
+| HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
 
