@@ -1,28 +1,29 @@
 # Dockerized Auth API
 Authentication micro-service on Node.js.
 
-# Environment Variables
+## Environment Variables
 The service should be properly configured with following environment variables.
 
-# Events
-The service generates events to the Bus (messaging service) in response to different requests.
+## Events
+The service generates events to the Bus (messaging service) in response to API requests.
 
-# API
+## API
 
-## POST /signup
+### POST /signup
 User registration.
 
-### Request
+#### Request
 | Param    | Description |
 |----------|-------------|
 | email    | Email       |
 | password | Password    |
 
-### Response
+#### Response
 | HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 201                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
+
 
 ## POST /signin
 User login.
