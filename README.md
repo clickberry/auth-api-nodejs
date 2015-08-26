@@ -36,11 +36,11 @@ The service generates events to the Bus (messaging service) in response to API r
 
 Topic | Message | Description
 :-- | :-- | :--
-registrations | { id: *user_id:string*, email: *user_provided_email:string*, membership: { id:*id:string*, provider:*provider:facebook*, token:*social_token*, name:*user_name* } } | User social and email registrations.
-logins | { id: *user_id:string*, email: *user_provided_email:string*, membership: { id:*id:string*, provider:*provider:facebook*, token:*social_token*, name:*user_name* } } | Social and email/password logins.
-account-merges | { id: *user_id:string*, fromUserId: *from_user_id:string* } | Account merges.
-account-unmerges | { id: *user_id:string*, provider: *social_provider:string*, socialId: *social_id:string* } | Social account deletes.
-account-deletes | { id: *user_id:string* } | Account deletes.
+registrations | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | User social and email registrations.
+logins | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | Social and email/password logins.
+account-merges | { id: *user_id*, fromUserId: *from_user_id* } | Account merges.
+account-unmerges | { id: *user_id*, provider: *social_provider*, socialId: *social_id* } | Social account deletes.
+account-deletes | { id: *user_id* } | Account deletes.
 
 # API
 
