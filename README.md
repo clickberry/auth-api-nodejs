@@ -4,6 +4,7 @@ Authentication micro-service on Node.js.
 * [Environment Variables](#environment-variables)
 * [Events](#events)
 * [API](#api)
+* [License](#license)
 
 # Environment Variables
 The service should be properly configured with following environment variables.
@@ -216,3 +217,5 @@ Deletes user account.
 |------------|-----------|
 | StatusCode | 200       |
 
+# License
+Source code is under GNU GPL v3 [license](LICENSE).
