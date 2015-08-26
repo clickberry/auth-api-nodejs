@@ -38,6 +38,9 @@ Topic | Message | Description
 :-- | :-- | :--
 registrations | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | User social and email registrations.
 logins | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | Social and email/password logins.
+account-merges | { id: *user_id:string*, fromUserId: *from_user_id:string* } | Account merges.
+account-unmerges | { id: *user_id:string*, provider: *social_provider:string*, socialId: *social_id:string* } | Social account deletes.
+account-deletes | { id: *user_id:string* } | Account deletes.
 
 # API
 
