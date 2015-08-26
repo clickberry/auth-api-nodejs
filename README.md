@@ -5,6 +5,7 @@ Authentication micro-service on Node.js.
 * [Technologies](#technologies)
 * [Environment Variables](#environment-variables)
 * [Events](#events)
+* [Encryption](#encryption)
 * [API](#api)
 * [License](#license)
 
@@ -54,6 +55,10 @@ logins | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, 
 account-merges | { id: *user_id*, fromUserId: *from_user_id* } | Account merges.
 account-unmerges | { id: *user_id*, provider: *social_provider*, socialId: *social_id* } | Social account deletes.
 account-deletes | { id: *user_id* } | Account deletes.
+
+
+# Encryption
+See on [http://passportjs.org](http://passportjs.org)
 
 # API
 
