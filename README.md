@@ -10,7 +10,7 @@ The service should be properly configured with following environment variables.
 
 Key | Value | Description
 :-- | :-- | :-- 
-HOSTNAME | auth.clbr.ws | Callback hostname.
+HOSTNAME | auth.yourdomain.com | Callback hostname.
 HOSTPORT | 80 | Callback host port.
 MONGODB_CONNECTION | mongodb://mongo_host:mongo_port/auth | MongoDB connection string.
 TOKEN_ACCESSSECRET | MDdDRDhBOD*** | Access token secret.
