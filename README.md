@@ -23,6 +23,8 @@ VK_CLIENTID | 503*** | VK client id.
 VK_CLIENTSECRET | XIYUHNUZXX*** | VK client secret.
 FACEBOOK_CLIENTID | 9357215664*** | Facebook client id.
 FACEBOOK_CLIENTSECRET | 0dd6dd8d74*** | Facebook client secret.
+NSQD_ADDRESS | bus.yourdomain.com | A hostname or an IP address of the NSQD running instance.
+NSQD_PORT | 4150 | A TCP port number of the NSQD running instance to publish events.
 
 
 
