@@ -10,7 +10,7 @@ The service should be properly configured with following environment variables.
 
 Key | Value | Description
 :-- | :-- | :-- 
-HOSTNAME | auth.clbr.ws | Callback hostname.
+HOSTNAME | auth.yourdomain.com | Callback hostname.
 HOSTPORT | 80 | Callback host port.
 MONGODB_CONNECTION | mongodb://mongo_host:mongo_port/auth | MongoDB connection string.
 TOKEN_ACCESSSECRET | MDdDRDhBOD*** | Access token secret.
@@ -23,12 +23,24 @@ VK_CLIENTID | 503*** | VK client id.
 VK_CLIENTSECRET | XIYUHNUZXX*** | VK client secret.
 FACEBOOK_CLIENTID | 9357215664*** | Facebook client id.
 FACEBOOK_CLIENTSECRET | 0dd6dd8d74*** | Facebook client secret.
+NSQD_ADDRESS | bus.yourdomain.com | A hostname or an IP address of the NSQD running instance.
+NSQD_PORT | 4150 | A TCP port number of the NSQD running instance to publish events.
 
 
 
 
 # Events
 The service generates events to the Bus (messaging service) in response to API requests.
+
+## Send events
+
+Topic | Message | Description
+:-- | :-- | :--
+registrations | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | User social and email registrations.
+logins | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | Social and email/password logins.
+account-merges | { id: *user_id:string*, fromUserId: *from_user_id:string* } | Account merges.
+account-unmerges | { id: *user_id:string*, provider: *social_provider:string*, socialId: *social_id:string* } | Social account deletes.
+account-deletes | { id: *user_id:string* } | Account deletes.
 
 # API
 
