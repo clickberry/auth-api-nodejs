@@ -9,7 +9,7 @@ Authentication micro-service on Node.js.
 * [License](#license)
 
 # Architecture
-The application is a web api service with database and messaging service dependencies.
+The application is a REST API service with database and messaging service dependencies.
 
 # Technologies
 * Node.js
