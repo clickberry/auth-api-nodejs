@@ -1,10 +1,22 @@
 # Dockerized Auth API
 Authentication micro-service on Node.js.
 
+* [Architecture](#architecture)
+* [Technologies](#technologies)
 * [Environment Variables](#environment-variables)
 * [Events](#events)
 * [API](#api)
 * [License](#license)
+
+# Architecture.
+The application is a web api service with database and messaging service dependencies.
+
+# Technologies
+* Node.js
+* MongoDB/Mongoose
+* Express.js
+* Passport.js
+* nsqjs driver for NSQ messaging service
 
 # Environment Variables
 The service should be properly configured with following environment variables.
