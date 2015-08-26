@@ -1,6 +1,6 @@
 {
   "name": "clickberry-auth-api",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
