@@ -1,9 +1,23 @@
 # Dockerized Auth API
 Authentication micro-service on Node.js.
 
+* [Architecture](#architecture)
+* [Technologies](#technologies)
 * [Environment Variables](#environment-variables)
 * [Events](#events)
+* [Encryption](#encryption)
 * [API](#api)
+* [License](#license)
+
+# Architecture
+The application is a REST API service with database and messaging service (Bus) dependencies.
+
+# Technologies
+* Node.js
+* MongoDB/Mongoose
+* Express.js
+* Passport.js
+* Official nsqjs driver for NSQ messaging service
 
 # Environment Variables
 The service should be properly configured with following environment variables.
@@ -36,11 +50,15 @@ The service generates events to the Bus (messaging service) in response to API r
 
 Topic | Message | Description
 :-- | :-- | :--
-registrations | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | User social and email registrations.
-logins | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | Social and email/password logins.
-account-merges | { id: *user_id:string*, fromUserId: *from_user_id:string* } | Account merges.
-account-unmerges | { id: *user_id:string*, provider: *social_provider:string*, socialId: *social_id:string* } | Social account deletes.
-account-deletes | { id: *user_id:string* } | Account deletes.
+registrations | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | User social and email registrations.
+logins | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | Social and email/password logins.
+account-merges | { id: *user_id*, fromUserId: *from_user_id* } | Account merges.
+account-unmerges | { id: *user_id*, provider: *social_provider*, socialId: *social_id* } | Social account deletes.
+account-deletes | { id: *user_id* } | Account deletes.
+
+
+# Encryption
+See on [http://passportjs.org](http://passportjs.org)
 
 # API
 
@@ -216,3 +234,5 @@ Deletes user account.
 |------------|-----------|
 | StatusCode | 200       |
 
+# License
+Source code is under GNU GPL v3 [license](LICENSE).
