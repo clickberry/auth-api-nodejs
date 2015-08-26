@@ -36,8 +36,8 @@ The service generates events to the Bus (messaging service) in response to API r
 
 Topic | Message | Description
 :-- | :-- | :--
-registrations | { id: *user_id:string*, email: *user_provided_email:string*, membership: { id, provider, token, name } } | User social and email registrations.
-logins | { id: *user_id:string*, email: *user_provided_email:string*, membership: { id: id, provider:provider, token: token, name:name } } | Social and email/password logins.
+registrations | { id: *user_id:string*, email: *user_provided_email:string*, membership: { id:*id:string*, provider:*provider:facebook*, token:*social_token*, name:*user_name* } } | User social and email registrations.
+logins | { id: *user_id:string*, email: *user_provided_email:string*, membership: { id:*id:string*, provider:*provider:facebook*, token:*social_token*, name:*user_name* } } | Social and email/password logins.
 account-merges | { id: *user_id:string*, fromUserId: *from_user_id:string* } | Account merges.
 account-unmerges | { id: *user_id:string*, provider: *social_provider:string*, socialId: *social_id:string* } | Social account deletes.
 account-deletes | { id: *user_id:string* } | Account deletes.
