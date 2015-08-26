@@ -30,6 +30,13 @@ FACEBOOK_CLIENTSECRET | 0dd6dd8d74*** | Facebook client secret.
 # Events
 The service generates events to the Bus (messaging service) in response to API requests.
 
+## Send events
+
+Topic | Message | Description
+:-- | :-- | :--
+registrations | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | User social and email registrations.
+logins | { id: *user_id:string*, email: *user_provided_email:string*, membership: *social_claims:object* } | Social and email/password logins.
+
 # API
 
 ## POST /signup
