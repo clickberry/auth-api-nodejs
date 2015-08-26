@@ -9,14 +9,14 @@ Authentication micro-service on Node.js.
 * [License](#license)
 
 # Architecture
-The application is a REST API service with database and messaging service dependencies.
+The application is a REST API service with database and messaging service (Bus) dependencies.
 
 # Technologies
 * Node.js
 * MongoDB/Mongoose
 * Express.js
 * Passport.js
-* nsqjs driver for NSQ messaging service
+* Official nsqjs driver for NSQ messaging service
 
 # Environment Variables
 The service should be properly configured with following environment variables.
