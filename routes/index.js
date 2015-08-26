@@ -168,7 +168,7 @@ module.exports = function (passport) {
             if (err)
                 return next(err);
 
-            bus.publishMergeUser({toUserId: toUserId, fromUserId: fromUserId});
+            bus.publishMergeUser({id: toUserId, fromUserId: fromUserId});
             res.send(200);
         });
     });
@@ -184,7 +184,7 @@ module.exports = function (passport) {
                 if (err)
                     return next(err);
 
-                bus.publishUnmergeUser({userId: userId, provider: provider, id: id});
+                bus.publishUnmergeUser({id: userId, provider: provider, socialId: id});
                 res.send(200);
             });
         });
@@ -199,7 +199,7 @@ module.exports = function (passport) {
                 if (err)
                     return next(err);
 
-                bus.publishDeleteUser({userId: userId});
+                bus.publishDeleteUser({id: userId});
                 res.send(200);
             });
         });
@@ -215,7 +215,7 @@ function mapUser(user) {
 }
 
 function publishSocialAuth(req) {
-    var message = {userId: req.user._id, membership: req.authData.membership};
+    var message = {id: req.user._id, membership: req.authData.membership};
     if (req.authData.isNewUser) {
         bus.publishSignupUser(message)
     }
