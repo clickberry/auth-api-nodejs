@@ -134,7 +134,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
-        bus.publishSigninUser(mapUser(user));
+        bus.publishSigninUser(mapUser(req.user));
         res.send({
             accessToken: res.locals.accessToken,
             refreshToken: res.locals.refreshToken
