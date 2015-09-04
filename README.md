@@ -24,8 +24,8 @@ The service should be properly configured with following environment variables.
 
 Key | Value | Description
 :-- | :-- | :-- 
-HOSTNAME | auth.yourdomain.com | Callback hostname.
-HOSTPORT | 80 | Callback host port.
+HOST_NAME | auth.yourdomain.com | Callback hostname.
+HOST_PORT | 80 | Callback host port.
 MONGODB_CONNECTION | mongodb://mongo_host:mongo_port/auth | MongoDB connection string.
 TOKEN_ACCESSSECRET | MDdDRDhBOD*** | Access token secret.
 TOKEN_REFRESHSECRET | NUQzNTYwND*** | Refresh token secret.
@@ -95,11 +95,11 @@ Signs in user by email.
 
 
 
-### GET /auth/facebook
+### GET /facebook
 Registers or signs in user via Facebook.
 
 #### Response
-Facebook redirects to /auth/facebook/callback, that returns:
+Facebook redirects to /facebook/callback, that returns:
 
 | HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
@@ -107,33 +107,33 @@ Facebook redirects to /auth/facebook/callback, that returns:
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 
-## GET /auth/twitter
+## GET /twitter
 Registers or signs in user via Twitter.
 
 ### Response
-Twitter redirects to /auth/twitter/callback, that returns:
+Twitter redirects to /twitter/callback, that returns:
 
 | HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-## GET /auth/google
+## GET /google
 Registers or signs in user via Google.
 
 ### Response
-Google redirects to /auth/google/callback, that returns:
+Google redirects to /google/callback, that returns:
 
 | HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
-## GET /auth/vk
+## GET /vk
 Registers or signs in user via Vk.
 
 ### Response
-Vk redirects to /auth/vk/callback, that returns:
+Vk redirects to /vk/callback, that returns:
 
 | HTTP       |      Value                                                         |
 |------------|--------------------------------------------------------------------|
@@ -207,7 +207,7 @@ Unmerges social account.
 |------------|-----------|
 | StatusCode | 200       |
 
-## GET /profile
+## GET /account
 Gets user info.
 
 ### Request
@@ -221,7 +221,7 @@ Gets user info.
 | StatusCode | 200       |
 | Body       | { "id": *user_id*, "email": *user_email*, "memberships": [] } |
 
-## DELETE /delete
+## DELETE /account
 Deletes user account.
 
 ### Request
