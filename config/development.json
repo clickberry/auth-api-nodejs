@@ -1,13 +1,15 @@
 {
   "environment": "development",
-  "hostPort": "8080",
-  "hostName": "localhost",
+  "host":{
+    "name":"local.portal.com",
+    "port":"8080"
+  },
   "token": {
     "accessSecret": "my access secret key",
     "refreshSecret": "my refresh secret key"
   },
   "mongodb": {
-    "connection": "mongodb://localhost/tmp-base"
+    "connection": "mongodb://192.168.99.100:27017/auth-base"
   },
   "nsqd": {
     "address": "192.168.99.100",

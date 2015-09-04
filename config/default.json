@@ -7,15 +7,15 @@
     "maxSessions": "10"
   },
   "facebook": {
-    "callbackURL": "/auth/facebook/callback"
+    "callbackURL": "/facebook/callback"
   },
   "twitter": {
-    "callbackURL": "/auth/twitter/callback"
+    "callbackURL": "/twitter/callback"
   },
   "google": {
-    "callbackURL": "/auth/google/callback"
+    "callbackURL": "/google/callback"
   },
   "vk": {
-    "callbackURL": "/auth/vk/callback"
+    "callbackURL": "/vk/callback"
   }
 }

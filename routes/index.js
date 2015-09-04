@@ -13,7 +13,7 @@ module.exports = function (passport) {
         res.send();
     });
 
-    router.get('/profile',
+    router.get('/account',
         passport.authenticate('access-token', {session: false}),
         function (req, res) {
             var user = req.user;
@@ -25,13 +25,27 @@ module.exports = function (passport) {
         }
     );
 
+    router.delete('/account',
+        passport.authenticate('access-token', {session: false}),
+        function (req, res, next) {
+            var userId = req.user._id;
+
+            userServices.deleteAccount(userId, function (err) {
+                if (err)
+                    return next(err);
+
+                bus.publishDeleteUser({id: userId});
+                res.send(200);
+            });
+        });
+
     // Facebook ----------------------
-    router.get('/auth/facebook', passport.authenticate('facebook', {
+    router.get('/facebook', passport.authenticate('facebook', {
         failureRedirect: '/',
         scope: ['email']
     }));
 
-    router.get('/auth/facebook/callback', [
+    router.get('/facebook/callback', [
         passport.authenticate('facebook', {session: false}),
         refreshToken.create,
         accessToken.create,
@@ -45,11 +59,11 @@ module.exports = function (passport) {
     });
 
     // Twitter ----------------------
-    router.get('/auth/twitter', passport.authenticate('twitter', {
+    router.get('/twitter', passport.authenticate('twitter', {
         failureRedirect: '/'
     }));
 
-    router.get('/auth/twitter/callback', [
+    router.get('/twitter/callback', [
         passport.authenticate('twitter', {session: false}),
         refreshToken.create,
         accessToken.create,
@@ -63,12 +77,12 @@ module.exports = function (passport) {
     });
 
     // Google ----------------------
-    router.get('/auth/google', passport.authenticate('google', {
+    router.get('/google', passport.authenticate('google', {
         failureRedirect: '/',
         scope: ['email']
     }));
 
-    router.get('/auth/google/callback', [
+    router.get('/google/callback', [
         passport.authenticate('google', {session: false}),
         refreshToken.create,
         accessToken.create,
@@ -82,12 +96,12 @@ module.exports = function (passport) {
     });
 
     // Vkontakte ----------------------
-    router.get('/auth/vk', passport.authenticate('vkontakte', {
+    router.get('/vk', passport.authenticate('vkontakte', {
         failureRedirect: '/',
         scope: ['email']
     }));
 
-    router.get('/auth/vk/callback', [
+    router.get('/vk/callback', [
         passport.authenticate('vkontakte', {session: false}),
         refreshToken.create,
         accessToken.create,
@@ -185,21 +199,6 @@ module.exports = function (passport) {
                     return next(err);
 
                 bus.publishUnmergeUser({id: userId, provider: provider, socialId: id});
-                res.send(200);
-            });
-        });
-
-
-    router.delete('/delete',
-        passport.authenticate('access-token', {session: false}),
-        function (req, res, next) {
-            var userId = req.user._id;
-
-            userServices.deleteAccount(userId, function (err) {
-                if (err)
-                    return next(err);
-
-                bus.publishDeleteUser({id: userId});
                 res.send(200);
             });
         });
