@@ -1,6 +1,6 @@
 {
   "name": "clickberry-auth-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "app.js",
   "description": "Auth. micro-service on Node.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.12.4",
     "bootstrap": "^3.3.5",
+    "connect-mongo": "^0.8.2",
     "debug": "~2.2.0",
     "events": "^1.0.2",
     "express": "~4.12.4",

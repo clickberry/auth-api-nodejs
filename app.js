@@ -17,10 +17,13 @@ require('./config/passport/oauth-passport')(passport);
 var app = express();
 // For Twitter only ---------------
 var session = require('express-session');
+var MongoStore=require('connect-mongo')(session);
+
 app.use(session({
     secret: 'secretsessionfortwitteroauth1.0',
     saveUninitialized: true,
-    resave: true
+    resave: true,
+    store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 // For Twitter only ---------------
 
