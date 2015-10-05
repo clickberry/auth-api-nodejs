@@ -9,10 +9,11 @@
     "refreshSecret": "my refresh secret key"
   },
   "mongodb": {
-    "connection": "mongodb://192.168.99.100:27017/auth-base"
+    "connection": "mongodb://localhost/tmp-base"
   },
   "nsqd": {
     "address": "192.168.99.100",
-    "port": "4150"
+    "port": "4150",
+    "disable": "disable"
   }
 }

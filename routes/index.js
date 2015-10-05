@@ -196,7 +196,7 @@ module.exports = function (passport) {
         refreshToken.remove,
         userMw.update
     ], function (req, res) {
-        res.send(200);
+        res.send();
     });
 
     router.delete('/signoutall', [
@@ -204,7 +204,7 @@ module.exports = function (passport) {
         refreshToken.removeAll,
         userMw.update
     ], function (req, res) {
-        res.send(200);
+        res.send();
     });
 
     router.post('/merge', [
@@ -223,7 +223,7 @@ module.exports = function (passport) {
                     return next(err);
                 }
 
-                res.send(200);
+                res.send();
             });
         });
     });
@@ -244,7 +244,7 @@ module.exports = function (passport) {
                         return next(err);
                     }
 
-                    res.send(200);
+                    res.send();
                 });
             });
         });
