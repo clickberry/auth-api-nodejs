@@ -56,7 +56,7 @@ module.exports = function (passport) {
         refreshToken.create,
         accessToken.create,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         publishSocialAuth(req, function(err){
             if (err) {
                 return next(err);
@@ -79,7 +79,7 @@ module.exports = function (passport) {
         refreshToken.create,
         accessToken.create,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         publishSocialAuth(req, function(err){
             if (err) {
                 return next(err);
@@ -103,7 +103,7 @@ module.exports = function (passport) {
         refreshToken.create,
         accessToken.create,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         publishSocialAuth(req, function(err){
             if (err) {
                 return next(err);
@@ -127,7 +127,7 @@ module.exports = function (passport) {
         refreshToken.create,
         accessToken.create,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         publishSocialAuth(req, function(err){
             if (err) {
                 return next(err);
@@ -147,7 +147,7 @@ module.exports = function (passport) {
         refreshToken.create,
         accessToken.create,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         res.send({
             accessToken: res.locals.accessToken,
             refreshToken: res.locals.refreshToken
@@ -159,7 +159,7 @@ module.exports = function (passport) {
         refreshToken.create,
         accessToken.create,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         bus.publishSignupUser(mapUser(req.user), function(err){
             if (err) {
                 return next(err);
@@ -178,7 +178,7 @@ module.exports = function (passport) {
         refreshToken.create,
         accessToken.create,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         bus.publishSigninUser(mapUser(req.user), function(err){
             if (err) {
                 return next(err);
@@ -195,7 +195,7 @@ module.exports = function (passport) {
         passport.authenticate('delete-refresh-token', {session: false}),
         refreshToken.remove,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         res.send();
     });
 
@@ -203,7 +203,7 @@ module.exports = function (passport) {
         passport.authenticate('delete-all-refresh-token', {session: false}),
         refreshToken.removeAll,
         userMw.update
-    ], function (req, res) {
+    ], function (req, res, next) {
         res.send();
     });
 
@@ -259,12 +259,24 @@ function mapUser(user) {
     };
 }
 
-function publishSocialAuth(req) {
+function publishSocialAuth(req, callback) {
     var message = {id: req.user._id, membership: req.authData.membership};
     if (req.authData.isNewUser) {
-        bus.publishSignupUser(message)
+        bus.publishSignupUser(message, function(err){
+            if (err) {
+                return callback(err);
+            }
+
+            callback()
+        });
     }
     else {
-        bus.publishSigninUser(message);
+        bus.publishSigninUser(message, function(err){
+            if (err) {
+                return callback(err);
+            }
+
+            callback()
+        });
     }
 }

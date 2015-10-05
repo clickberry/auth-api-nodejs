@@ -1,6 +1,6 @@
 {
   "name": "clickberry-auth-api",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "app.js",
   "description": "Auth. micro-service on Node.js",
   "scripts": {
