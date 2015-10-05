@@ -1,5 +1,4 @@
 {
-  "environment": "development",
   "host":{
     "name":"local.portal.com",
     "port":"8080"

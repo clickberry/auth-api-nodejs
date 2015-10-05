@@ -24,6 +24,10 @@ var getUrl = function (param) {
     return hostName + pathUrl;
 };
 
+if (get('environment') === 'development') {
+    console.warn('ENVIRONMENT set to "development" mode.');
+}
+
 exports.get = get;
 exports.getInt = getInt;
 exports.getUrl = getUrl;
