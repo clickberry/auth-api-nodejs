@@ -31,11 +31,17 @@ module.exports = function (passport) {
             var userId = req.user._id;
 
             userServices.deleteAccount(userId, function (err) {
-                if (err)
+                if (err) {
                     return next(err);
+                }
 
-                bus.publishDeleteUser({id: userId});
-                res.send(200);
+                bus.publishDeleteUser({id: userId}, function(err){
+                    if (err) {
+                        return next(err);
+                    }
+
+                    res.send(200);
+                });
             });
         });
 
@@ -51,10 +57,15 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
-        publishSocialAuth(req);
-        res.send({
-            accessToken: res.locals.accessToken,
-            refreshToken: res.locals.refreshToken
+        publishSocialAuth(req, function(err){
+            if (err) {
+                return next(err);
+            }
+
+            res.send({
+                accessToken: res.locals.accessToken,
+                refreshToken: res.locals.refreshToken
+            });
         });
     });
 
@@ -69,10 +80,15 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
-        publishSocialAuth(req);
-        res.send({
-            accessToken: res.locals.accessToken,
-            refreshToken: res.locals.refreshToken
+        publishSocialAuth(req, function(err){
+            if (err) {
+                return next(err);
+            }
+
+            res.send({
+                accessToken: res.locals.accessToken,
+                refreshToken: res.locals.refreshToken
+            });
         });
     });
 
@@ -88,10 +104,15 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
-        publishSocialAuth(req);
-        res.send({
-            accessToken: res.locals.accessToken,
-            refreshToken: res.locals.refreshToken
+        publishSocialAuth(req, function(err){
+            if (err) {
+                return next(err);
+            }
+
+            res.send({
+                accessToken: res.locals.accessToken,
+                refreshToken: res.locals.refreshToken
+            });
         });
     });
 
@@ -107,10 +128,15 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
-        publishSocialAuth(req);
-        res.send({
-            accessToken: res.locals.accessToken,
-            refreshToken: res.locals.refreshToken
+        publishSocialAuth(req, function(err){
+            if (err) {
+                return next(err);
+            }
+
+            res.send({
+                accessToken: res.locals.accessToken,
+                refreshToken: res.locals.refreshToken
+            });
         });
     });
 
@@ -134,11 +160,16 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
-        bus.publishSignupUser(mapUser(req.user));
-        res.status(201);
-        res.send({
-            accessToken: res.locals.accessToken,
-            refreshToken: res.locals.refreshToken
+        bus.publishSignupUser(mapUser(req.user), function(err){
+            if (err) {
+                return next(err);
+            }
+
+            res.status(201);
+            res.send({
+                accessToken: res.locals.accessToken,
+                refreshToken: res.locals.refreshToken
+            });
         });
     });
 
@@ -148,10 +179,15 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res) {
-        bus.publishSigninUser(mapUser(req.user));
-        res.send({
-            accessToken: res.locals.accessToken,
-            refreshToken: res.locals.refreshToken
+        bus.publishSigninUser(mapUser(req.user), function(err){
+            if (err) {
+                return next(err);
+            }
+
+            res.send({
+                accessToken: res.locals.accessToken,
+                refreshToken: res.locals.refreshToken
+            });
         });
     });
 
@@ -182,8 +218,13 @@ module.exports = function (passport) {
             if (err)
                 return next(err);
 
-            bus.publishMergeUser({id: toUserId, fromUserId: fromUserId});
-            res.send(200);
+            bus.publishMergeUser({id: toUserId, fromUserId: fromUserId}, function(err){
+                if (err) {
+                    return next(err);
+                }
+
+                res.send(200);
+            });
         });
     });
 
@@ -198,8 +239,13 @@ module.exports = function (passport) {
                 if (err)
                     return next(err);
 
-                bus.publishUnmergeUser({id: userId, provider: provider, socialId: id});
-                res.send(200);
+                bus.publishUnmergeUser({id: userId, provider: provider, socialId: id}, function(err){
+                    if (err) {
+                        return next(err);
+                    }
+
+                    res.send(200);
+                });
             });
         });
 
