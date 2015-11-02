@@ -17,7 +17,7 @@ require('./config/passport/oauth-passport')(passport);
 var app = express();
 
 // Configure CORS
-app.use(require('cors')({allowedHeaders: 'authorization'}));
+app.use(require('cors')({allowedHeaders: 'Authorization, Content-Type'}));
 
 // For Twitter only ---------------
 var session = require('express-session');
