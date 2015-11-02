@@ -15,9 +15,13 @@ require('./config/passport/local-passport')(passport);
 require('./config/passport/oauth-passport')(passport);
 
 var app = express();
+
+// Configure CORS
+app.use(require('cors')({allowedHeaders: 'authorization'}));
+
 // For Twitter only ---------------
 var session = require('express-session');
-var MongoStore=require('connect-mongo')(session);
+var MongoStore = require('connect-mongo')(session);
 
 app.use(session({
     secret: 'secretsessionfortwitteroauth1.0',
@@ -52,7 +56,7 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-        if(res.statusCode===500){
+        if (res.statusCode === 500) {
             console.log(err.message);
             console.log(err.stack);
         }
@@ -61,7 +65,7 @@ if (app.get('env') === 'development') {
             error: {}
         });
     });
-}else {
+} else {
 // production error handler
 // no stacktraces leaked to user
     app.use(function (err, req, res, next) {
