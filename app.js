@@ -16,6 +16,10 @@ require('./config/passport/oauth-passport')(passport);
 
 var app = express();
 
+console.log(__dirname);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 // Configure CORS
 app.use(require('cors')({allowedHeaders: 'Authorization, Content-Type'}));
 

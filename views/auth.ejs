@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+
+<script type="text/javascript">
+    parent.postMessage({accessToken: "<%= refreshToken %>", refreshToken: "<%= accessToken %>"}, "*");
+</script>
+
+</body>
+</html>

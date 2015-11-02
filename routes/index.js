@@ -62,10 +62,7 @@ module.exports = function (passport) {
                 return next(err);
             }
 
-            res.send({
-                accessToken: res.locals.accessToken,
-                refreshToken: res.locals.refreshToken
-            });
+            renderTokens(res);
         });
     });
 
@@ -85,10 +82,7 @@ module.exports = function (passport) {
                 return next(err);
             }
 
-            res.send({
-                accessToken: res.locals.accessToken,
-                refreshToken: res.locals.refreshToken
-            });
+            renderTokens(res);
         });
     });
 
@@ -109,10 +103,7 @@ module.exports = function (passport) {
                 return next(err);
             }
 
-            res.send({
-                accessToken: res.locals.accessToken,
-                refreshToken: res.locals.refreshToken
-            });
+            renderTokens(res);
         });
     });
 
@@ -133,10 +124,7 @@ module.exports = function (passport) {
                 return next(err);
             }
 
-            res.send({
-                accessToken: res.locals.accessToken,
-                refreshToken: res.locals.refreshToken
-            });
+            renderTokens(res);
         });
     });
 
@@ -279,4 +267,11 @@ function publishSocialAuth(req, callback) {
             callback()
         });
     }
+}
+
+function renderTokens(res){
+    res.render('auth', {
+        accessToken: res.locals.accessToken,
+        refreshToken: res.locals.refreshToken
+    });
 }
