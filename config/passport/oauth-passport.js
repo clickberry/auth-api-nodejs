@@ -2,6 +2,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var VKontakteStrategy = require('passport-vkontakte').Strategy;
+var moment = require('moment');
 
 var config = require('../index');
 var User = require('../../models/user');
@@ -91,7 +92,8 @@ module.exports = function (passport) {
             provider: profile.provider,
             token: token,
             name: profile.displayName,
-            email: profile.emails && profile.emails[0].value
+            email: profile.emails && profile.emails[0].value,
+            created: moment.utc()
         };
         return membership;
     }

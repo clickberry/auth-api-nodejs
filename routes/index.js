@@ -20,7 +20,8 @@ module.exports = function (passport) {
             res.send({
                 id: user.id,
                 email: user.local.email,
-                memberships: user.memberships
+                memberships: user.memberships,
+                created: user.created
             });
         }
     );
@@ -243,7 +244,8 @@ module.exports = function (passport) {
 function mapUser(user) {
     return {
         id: user._id,
-        email: user.local.email
+        email: user.local.email,
+        created: user.created
     };
 }
 

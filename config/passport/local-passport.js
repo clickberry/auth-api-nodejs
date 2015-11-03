@@ -1,4 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
+var moment = require('moment');
 
 var config = require('../index');
 var User = require('../../models/user');
@@ -18,6 +19,7 @@ module.exports = function (passport) {
                 return done(null, false);
             } else {
                 var newUser = new User();
+                newUser.created = moment.utc();
                 newUser.local.email = email;
                 newUser.generateHash(password, function (err, hash) {
                     if (err)
