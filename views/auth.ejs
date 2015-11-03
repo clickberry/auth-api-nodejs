@@ -5,7 +5,7 @@
 <body>
 
 <script type="text/javascript">
-    parent.postMessage({accessToken: "<%= refreshToken %>", refreshToken: "<%= accessToken %>"}, "*");
+    parent.postMessage({refreshToken: "<%= refreshToken %>", accessToken: "<%= accessToken %>"}, "*");
 </script>
 
 </body>
