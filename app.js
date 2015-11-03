@@ -8,7 +8,21 @@ var mongoose = require('mongoose');
 var config = require('./config');
 var routes = require('./routes/index')(passport);
 
-mongoose.connect(config.get('mongodb:connection'));
+var options = {
+    server: {
+        socketOptions: {
+            keepAlive: 1,
+            connectTimeoutMS: 30000
+        }
+    },
+    replset: {
+        socketOptions: {
+            keepAlive: 1,
+            connectTimeoutMS: 30000
+        }
+    }
+};
+mongoose.connect(config.get('mongodb:connection'), options);
 
 require('./config/passport/jwt-passport')(passport);
 require('./config/passport/local-passport')(passport);
