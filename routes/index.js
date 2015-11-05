@@ -1,4 +1,6 @@
 var express = require('express');
+var cors = require('cors');
+
 var refreshToken = require('../middleware/refresh-token-mw');
 var accessToken = require('../middleware/access-token-mw');
 var userMw = require('../middleware/user-mw');
@@ -48,12 +50,42 @@ module.exports = function (passport) {
         });
 
     router.post('/social',
+        cors(function (req, callback) {
+
+            callback(null, {origin: true, credentials: true, methods: 'POST', allowedHeaders: 'Authorization, Content-Type'});
+        }),
         function (req, res) {
             var callbackUri = req.body.callbackUri;
+            //var host = req.headers['host'];
+
+            //res.setHeader('Access-Control-Allow-Origin', 'http://' + host);
+            //res.setHeader('Access-Control-Allow-Credentials', true);
+            //res.setHeader('Access-Control-Allow-Methods', 'POST');
+            //res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+
             res.cookie('callbackUri', callbackUri, {httpOnly: true});
             res.send();
         }
     );
+
+    //router.options('/social',
+    //    //cors(function (req, callback) {
+    //    //
+    //    //    callback(null, {origin: true});
+    //    //}),
+    //    function (req, res) {
+    //        var callbackUri = req.body.callbackUri;
+    //        var host = req.headers['host'];
+    //
+    //        res.setHeader('Access-Control-Allow-Origin', 'http://' + host);
+    //        res.setHeader('Access-Control-Allow-Credentials', true);
+    //        res.setHeader('Access-Control-Allow-Methods', 'POST');
+    //        res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    //
+    //        res.cookie('callbackUri', callbackUri, {httpOnly: true});
+    //        res.send();
+    //    }
+    //);
 
     // Facebook ----------------------
     router.get('/facebook',

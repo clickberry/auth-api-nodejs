@@ -31,7 +31,7 @@ require('./config/passport/oauth-passport')(passport);
 var app = express();
 
 // Configure CORS
-app.use(require('cors')({allowedHeaders: 'Authorization, Content-Type', credentials: true}));
+app.use(require('cors')({allowedHeaders: 'Authorization, Content-Type'}));
 
 app.use(cookieParser());
 
