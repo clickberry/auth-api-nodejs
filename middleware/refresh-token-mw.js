@@ -79,5 +79,5 @@ function createRefreshPayload(user) {
 function createRefreshToken(payload) {
     var refreshSecret = config.get("token:refreshSecret");
     var refreshTimeout = config.getInt("token:refreshTimeout");
-    return jwt.sign(payload, refreshSecret, {expiresInSeconds: refreshTimeout});
+    return jwt.sign(payload, refreshSecret, {expiresIn: refreshTimeout});
 }

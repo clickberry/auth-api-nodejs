@@ -32,5 +32,5 @@ function createAccessPayload(user) {
 function createAccessToken(payload) {
     var accessSecret = config.get("token:accessSecret");
     var accessTimeout = config.getInt("token:accessTimeout");
-    return jwt.sign(payload, accessSecret, {expiresInSeconds: accessTimeout});
+    return jwt.sign(payload, accessSecret, {expiresIn: accessTimeout});
 }

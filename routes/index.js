@@ -2,6 +2,7 @@ var express = require('express');
 var refreshToken = require('../middleware/refresh-token-mw');
 var accessToken = require('../middleware/access-token-mw');
 var userMw = require('../middleware/user-mw');
+
 var userServices = require('../lib/user-services');
 var Bus = require('../lib/bus-service');
 var bus = new Bus({});
@@ -36,7 +37,7 @@ module.exports = function (passport) {
                     return next(err);
                 }
 
-                bus.publishDeleteUser({id: userId}, function(err){
+                bus.publishDeleteUser({id: userId}, function (err) {
                     if (err) {
                         return next(err);
                     }
@@ -46,11 +47,20 @@ module.exports = function (passport) {
             });
         });
 
+    router.post('/social',
+        function (req, res) {
+            var callbackUri = req.body.callbackUri;
+            res.cookie('callbackUri', callbackUri, {httpOnly: true});
+            res.send();
+        }
+    );
+
     // Facebook ----------------------
-    router.get('/facebook', passport.authenticate('facebook', {
-        failureRedirect: '/',
-        scope: ['email']
-    }));
+    router.get('/facebook',
+        passport.authenticate('facebook', {
+            failureRedirect: '/',
+            scope: ['email']
+        }));
 
     router.get('/facebook/callback', [
         passport.authenticate('facebook', {session: false}),
@@ -58,12 +68,13 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        publishSocialAuth(req, function(err){
+
+        publishSocialAuth(req, function (err) {
             if (err) {
                 return next(err);
             }
 
-            renderTokens(res);
+            redirectToCallbackUri(req, res);
         });
     });
 
@@ -78,12 +89,12 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        publishSocialAuth(req, function(err){
+        publishSocialAuth(req, function (err) {
             if (err) {
                 return next(err);
             }
 
-            renderTokens(res);
+            redirectToCallbackUri(req, res);
         });
     });
 
@@ -99,12 +110,12 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        publishSocialAuth(req, function(err){
+        publishSocialAuth(req, function (err) {
             if (err) {
                 return next(err);
             }
 
-            renderTokens(res);
+            redirectToCallbackUri(req, res);
         });
     });
 
@@ -120,12 +131,12 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        publishSocialAuth(req, function(err){
+        publishSocialAuth(req, function (err) {
             if (err) {
                 return next(err);
             }
 
-            renderTokens(res);
+            redirectToCallbackUri(req, res);
         });
     });
 
@@ -149,7 +160,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        bus.publishSignupUser(mapUser(req.user), function(err){
+        bus.publishSignupUser(mapUser(req.user), function (err) {
             if (err) {
                 return next(err);
             }
@@ -168,7 +179,7 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        bus.publishSigninUser(mapUser(req.user), function(err){
+        bus.publishSigninUser(mapUser(req.user), function (err) {
             if (err) {
                 return next(err);
             }
@@ -207,7 +218,7 @@ module.exports = function (passport) {
             if (err)
                 return next(err);
 
-            bus.publishMergeUser({id: toUserId, fromUserId: fromUserId}, function(err){
+            bus.publishMergeUser({id: toUserId, fromUserId: fromUserId}, function (err) {
                 if (err) {
                     return next(err);
                 }
@@ -228,7 +239,7 @@ module.exports = function (passport) {
                 if (err)
                     return next(err);
 
-                bus.publishUnmergeUser({id: userId, provider: provider, socialId: id}, function(err){
+                bus.publishUnmergeUser({id: userId, provider: provider, socialId: id}, function (err) {
                     if (err) {
                         return next(err);
                     }
@@ -252,7 +263,7 @@ function mapUser(user) {
 function publishSocialAuth(req, callback) {
     var message = {id: req.user._id, membership: req.authData.membership};
     if (req.authData.isNewUser) {
-        bus.publishSignupUser(message, function(err){
+        bus.publishSignupUser(message, function (err) {
             if (err) {
                 return callback(err);
             }
@@ -261,7 +272,7 @@ function publishSocialAuth(req, callback) {
         });
     }
     else {
-        bus.publishSigninUser(message, function(err){
+        bus.publishSigninUser(message, function (err) {
             if (err) {
                 return callback(err);
             }
@@ -271,9 +282,12 @@ function publishSocialAuth(req, callback) {
     }
 }
 
-function renderTokens(res){
-    res.render('auth', {
-        accessToken: res.locals.accessToken,
-        refreshToken: res.locals.refreshToken
-    });
+function redirectToCallbackUri(req, res) {
+    var callbackUri = (req.cookies && req.cookies.callbackUri) || '/';
+    var refreshToken = res.locals.refreshToken;
+    var accessToken = res.locals.accessToken;
+
+    var query = '?refresh_token=' + refreshToken + '&access_token=' + accessToken;
+
+    res.redirect(301, callbackUri + query);
 }

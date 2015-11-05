@@ -1,9 +1,9 @@
 var express = require('express');
-var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
 
 var config = require('./config');
 var routes = require('./routes/index')(passport);
@@ -30,11 +30,10 @@ require('./config/passport/oauth-passport')(passport);
 
 var app = express();
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 // Configure CORS
 app.use(require('cors')({allowedHeaders: 'Authorization, Content-Type'}));
+
+app.use(cookieParser());
 
 // For Twitter only ---------------
 var session = require('express-session');
