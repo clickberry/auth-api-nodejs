@@ -1,6 +1,6 @@
 {
   "name": "clickberry-auth-api",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "main": "app.js",
   "description": "Auth. micro-service on Node.js",
   "scripts": {
@@ -49,6 +49,7 @@
     "passport-twitter": "^1.0.3",
     "passport-vkontakte": "^0.4.0",
     "shortid": "^2.2.2",
-    "util": "^0.10.3"
+    "util": "^0.10.3",
+    "clickberry-http-errors": "clickberry/http-errors-nodejs.git#master"
   }
 }
