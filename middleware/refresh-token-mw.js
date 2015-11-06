@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
 var shortid = require('shortid');
+var error = require('clickberry-http-errors');
 var config = require('../config');
 
 function create(req, res, next) {
@@ -33,8 +34,7 @@ function check(req, res, next) {
     if (isExist) {
         next();
     } else {
-        var err = new Error('Not Authorized');
-        err.status = 401;
+        var err = new error.Unauthorized();
         next(err);
     }
 }

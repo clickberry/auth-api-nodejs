@@ -15,29 +15,6 @@ var userSchema = mongoose.Schema({
         name: String
     }],
     created: Date
-    //facebook: {
-    //    id: String,
-    //    token: String,
-    //    email: String,
-    //    name: String
-    //},
-    //twitter: {
-    //    id: String,
-    //    token: String,
-    //    userName: String,
-    //    displayName: String
-    //},
-    //google: {
-    //    id: String,
-    //    token: String,
-    //    email: String,
-    //    name: String
-    //},
-    //vk: {
-    //    id: String,
-    //    token: String,
-    //    name: String
-    //}
 });
 
 userSchema.methods.generateHash = function (password, callback) {
