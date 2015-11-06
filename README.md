@@ -94,17 +94,26 @@ Signs in user by email.
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 
+## POST /social
+Set cookie with callback uri.
+
+### Request
+| Body Param    | Description |
+|----------|-------------|
+| callbackUri    | Uri for redirect after OAuth signin      |
+
+### Response
+| HTTP       |  Value                                                             |
+|------------|--------------------------------------------------------------------|
+| StatusCode | 201                                                                |
+
 
 ### GET /facebook
 Registers or signs in user via Facebook.
 
 #### Response
-Facebook redirects to /facebook/callback, that returns:
-
-| HTTP       |      Value                                                         |
-|------------|--------------------------------------------------------------------|
-| StatusCode | 200                                                                |
-| Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
+Facebook redirects to /facebook/callback, then auth-api redirects to *callbackUri* with query params:
+**[*callbackUri*]?refresh_token=ciOiJIU...&access_tokene=yJ0eXAiOiJKV1...**
 
 
 ## GET /twitter
