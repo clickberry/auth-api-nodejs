@@ -113,41 +113,36 @@ Registers or signs in user via Facebook.
 
 #### Response
 Facebook redirects to /facebook/callback, then auth-api redirects to *callbackUri* with query params:
-**[*callbackUri*]?refresh_token=ciOiJIU...&access_tokene=yJ0eXAiOiJKV1...**
+
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
 
 
 ## GET /twitter
 Registers or signs in user via Twitter.
 
 ### Response
-Twitter redirects to /twitter/callback, that returns:
+Twitter redirects to /twitter/callback, then auth-api redirects to *callbackUri* with query params:
 
-| HTTP       |      Value                                                         |
-|------------|--------------------------------------------------------------------|
-| StatusCode | 200                                                                |
-| Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
+
 
 ## GET /google
 Registers or signs in user via Google.
 
 ### Response
-Google redirects to /google/callback, that returns:
+Google redirects to /google/callback, then auth-api redirects to *callbackUri* with query params:
 
-| HTTP       |      Value                                                         |
-|------------|--------------------------------------------------------------------|
-| StatusCode | 200                                                                |
-| Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
+
 
 ## GET /vk
 Registers or signs in user via Vk.
 
 ### Response
-Vk redirects to /vk/callback, that returns:
+Vk redirects to /vk/callback, then auth-api redirects to *callbackUri* with query params:
 
-| HTTP       |      Value                                                         |
-|------------|--------------------------------------------------------------------|
-| StatusCode | 200                                                                |
-| Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
+
 
 ## GET /refresh
 Updates access & refresh tokens.
