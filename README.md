@@ -159,7 +159,7 @@ Updates access & refresh tokens.
 | Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 ## DELETE /signout
-Sign outs current user.
+Signs out current user.
 
 ### Request
 | Header   | Value |
