@@ -193,6 +193,12 @@ Merges two accaunts.
 | token1   | Access token first account |
 | token2   | Access token second account |
 
+### Response
+| HTTP       | Value     |
+|------------|-----------|
+| StatusCode | 200       |
+
+
 ## DELETE /unmerge
 Unmerges social account.
 
