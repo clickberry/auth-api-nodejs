@@ -116,7 +116,7 @@ Registers or signs in user via Facebook.
 #### Response
 Facebook redirects to /facebook/callback, then auth-api redirects to *callbackUri* with query params:
 
-**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_token=*yJ0eXAiOiJKV1...***
 
 
 ## GET /twitter
@@ -125,7 +125,7 @@ Registers or signs in user via Twitter.
 ### Response
 Twitter redirects to /twitter/callback, then auth-api redirects to *callbackUri* with query params:
 
-**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_token=*yJ0eXAiOiJKV1...***
 
 
 ## GET /google
@@ -134,7 +134,7 @@ Registers or signs in user via Google.
 ### Response
 Google redirects to /google/callback, then auth-api redirects to *callbackUri* with query params:
 
-**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_token=*yJ0eXAiOiJKV1...***
 
 
 ## GET /vk
@@ -143,7 +143,7 @@ Registers or signs in user via Vk.
 ### Response
 Vk redirects to /vk/callback, then auth-api redirects to *callbackUri* with query params:
 
-**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_tokene=*yJ0eXAiOiJKV1...***
+**[*callbackUri*]?refresh_token=*ciOiJIU...*&access_token=*yJ0eXAiOiJKV1...***
 
 
 ## GET /refresh
@@ -231,7 +231,8 @@ Gets user info.
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
-| Body       | { "id": *user_id*, "email": *user_email*, "memberships": [] } |
+| Body       | { "id": *user_id*, "email": *user_email*, "memberships": [{id, provider,
+token, email, name}, ...] } |
 
 ## DELETE /account
 Deletes user account.
