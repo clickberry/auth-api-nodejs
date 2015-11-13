@@ -95,11 +95,13 @@ Signs in user by email.
 
 
 ## POST /social
-Set cookie with callback uri. You should use *withCredentials: true* parameter with your Ajax request to allow browser set cookies.
+Set cookie with callback uri. 
+
+You should use *withCredentials: true* parameter with your Ajax request to allow browser set cookies.
 
 ### Request
 | Body Param    | Description | Example | 
-|----------|-------------|
+|----------|-------------|-------------|
 | callbackUri    | Uri for redirect after OAuth signin      | http://yourdomain.com |
 
 ### Response
