@@ -231,8 +231,7 @@ Gets user info.
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
-| Body       | { "id": *user_id*, "email": *user_email*, "memberships": [{id, provider,
-token, email, name}, ...] } |
+| Body       | { "id": *user_id*, "email": *user_email*, "memberships": [{id, provider, token, email, name}, ...] } |
 
 ## DELETE /account
 Deletes user account.
