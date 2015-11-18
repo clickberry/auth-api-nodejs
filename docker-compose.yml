@@ -1,8 +1,0 @@
-auth:
-  build: .
-  ports:
-    - "8080:8080"
-  links:
-    - mongo
-mongo:
-  image: mongo:3.1
