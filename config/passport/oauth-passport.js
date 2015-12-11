@@ -4,7 +4,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var VKontakteStrategy = require('passport-vkontakte').Strategy;
 var moment = require('moment');
 
-var config = require('../index');
+var config = require('clickberry-config');
 var User = require('../../models/user');
 
 module.exports = function (passport) {

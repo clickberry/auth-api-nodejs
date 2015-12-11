@@ -1,5 +1,5 @@
 var express = require('express');
-var cors = require('cors');
+var config = require('clickberry-config');
 
 var refreshToken = require('../middleware/refresh-token-mw');
 var accessToken = require('../middleware/access-token-mw');
@@ -7,7 +7,16 @@ var userMw = require('../middleware/user-mw');
 
 var userServices = require('../lib/user-services');
 var Bus = require('../lib/bus-service');
-var bus = new Bus({});
+var bus = new Bus({
+    mode: config.get('node:env'),
+    address: config.get('nsqd:address'),
+    port: config.getInt('nsqd:port')
+});
+
+bus.on('reconnect_failed', function (err) {
+    console.log(err);
+    process.exit(1);
+});
 
 var router = express.Router();
 

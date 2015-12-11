@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-var config = require('../config');
+var config = require('clickberry-config');
 
 exports.create = function (req, res, next) {
     var user = req.user;

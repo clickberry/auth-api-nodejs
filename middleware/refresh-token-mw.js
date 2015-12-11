@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var shortid = require('shortid');
 var error = require('clickberry-http-errors');
-var config = require('../config');
+var config = require('clickberry-config');
 
 function create(req, res, next) {
     var user = req.user;

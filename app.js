@@ -5,7 +5,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 
-var config = require('./config');
+var config = require('clickberry-config');
 var routes = require('./routes/index')(passport);
 
 var options = {

@@ -1,6 +1,6 @@
 var JwtStrategy = require('passport-jwt').Strategy;
 
-var config = require('../index');
+var config = require('clickberry-config');
 var User = require('../../models/user');
 
 module.exports = function (passport) {

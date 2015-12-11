@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('server');
 var http = require('http');
-var config=require('../config');
+var config = require('clickberry-config');
 
 /**
  * Get port from environment and store in Express.
