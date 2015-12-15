@@ -10,7 +10,7 @@ function create(req, res, next) {
     user.refreshTokens = user.refreshTokens || [];
 
     // delete token if quantity is overflow
-    var maxSessions = config.getInt('maxSessions');
+    var maxSessions = config.getInt('token:maxSessions') || 10;
     if (user.refreshTokens.length >= maxSessions) {
         user.refreshTokens.shift();
     }
