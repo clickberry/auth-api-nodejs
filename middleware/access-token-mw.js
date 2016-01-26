@@ -25,7 +25,8 @@ exports.verify = function (tokenName) {
 
 function createAccessPayload(user) {
     return {
-        userId: user._id
+        userId: user._id,
+        role: user.role
     };
 }
 

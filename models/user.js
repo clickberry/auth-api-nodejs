@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var moment=require('moment');
-var bcrypt = require('bcrypt-nodejs')
-var config
+var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
+    role: String,
     refreshTokens: [String],
     local: {
         email: String,

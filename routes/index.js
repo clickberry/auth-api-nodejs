@@ -30,7 +30,8 @@ module.exports = function (passport) {
         function (req, res) {
             var user = req.user;
             res.send({
-                id: user.id,
+                id: user._id,
+                role: user.role,
                 email: user.local.email,
                 memberships: user.memberships,
                 created: user.created
@@ -266,6 +267,7 @@ module.exports = function (passport) {
 function mapUser(user) {
     return {
         id: user._id,
+        role: user.role,
         email: user.local.email,
         created: user.created
     };
