@@ -20,7 +20,6 @@ module.exports = function (passport) {
                 return done(null, false);
             } else {
                 var newUser = new User();
-                newUser.created = moment.utc();
                 newUser.local.email = email;
                 newUser.generateHash(password, function (err, hash) {
                     if (err)

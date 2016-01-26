@@ -24,6 +24,16 @@ var options = {
 };
 mongoose.connect(config.get('mongodb:connection'), options);
 
+var adminEmail = config.get('admin:email');
+var password = config.get('admin:password');
+require('./models/user').createAdmin(adminEmail, password, function (err, admin) {
+    if (err) {
+        console.log('Created/Updated Admin error.');
+    } else {
+        console.log('Admin with email \'' + admin.local.email + '\' was Created/Updated.');
+    }
+});
+
 require('./config/passport/jwt-passport')(passport);
 require('./config/passport/local-passport')(passport);
 require('./config/passport/oauth-passport')(passport);
@@ -73,7 +83,6 @@ if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         if (res.statusCode === 500) {
-            console.log(require('moment').utc().toString());
             console.log(err.message);
             console.log(err.stack);
         }

@@ -92,8 +92,7 @@ module.exports = function (passport) {
             provider: profile.provider,
             token: token,
             name: profile.displayName,
-            email: profile.emails && profile.emails[0].value,
-            created: moment.utc()
+            email: profile.emails && profile.emails[0].value
         };
         return membership;
     }

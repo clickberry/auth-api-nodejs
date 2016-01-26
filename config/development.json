@@ -14,5 +14,9 @@
     "address": "192.168.99.100",
     "port": "4150",
     "disable": "disable"
+  },
+  "admin":{
+    "email": "admin@clickberry.com",
+    "password": "123456"
   }
 }
