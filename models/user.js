@@ -43,7 +43,7 @@ userSchema.statics.createAdmin = function (email, password, callback) {
             {
                 new: true,
                 upsert: true,
-                setDefaultsOdInsert: true
+                setDefaultsOnInsert: true
             }, function(err, admin){
                 callback(err, admin);
             });
