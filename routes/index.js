@@ -266,7 +266,8 @@ module.exports = function (passport) {
 
 function mapUser(user) {
     return {
-        id: user._id,
+        id: user._id, //deprecated
+        userId: user._id,
         role: user.role,
         email: user.local.email,
         created: user.created
