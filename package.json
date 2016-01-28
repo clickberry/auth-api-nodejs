@@ -1,6 +1,6 @@
 {
   "name": "clickberry-auth-api",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "app.js",
   "description": "Auth. micro-service on Node.js",
   "scripts": {
@@ -28,6 +28,9 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.12.4",
     "bootstrap": "^3.3.5",
+    "clickberry-config": "https://github.com/clickberry/config-nodejs#master",
+    "clickberry-http-errors": "clickberry/http-errors-nodejs.git#master",
+    "clickberry-nsq-publisher": "https://github.com/clickberry/nsq-publisher-nodejs#master",
     "connect-mongo": "^0.8.2",
     "cookie-parser": "^1.4.0",
     "cors": "^2.7.1",
@@ -46,10 +49,8 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.3",
     "passport-vkontakte": "^0.4.0",
+    "q": "^1.4.1",
     "shortid": "^2.2.2",
-    "util": "^0.10.3",
-    "clickberry-http-errors": "clickberry/http-errors-nodejs.git#master",
-    "clickberry-nsq-publisher": "https://github.com/clickberry/nsq-publisher-nodejs#master",
-    "clickberry-config": "https://github.com/clickberry/config-nodejs#master"
+    "util": "^0.10.3"
   }
 }

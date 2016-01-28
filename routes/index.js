@@ -247,7 +247,7 @@ module.exports = function (passport) {
             var provider = req.body.provider;
             var id = req.body.id;
 
-            userServices.unmergeAccount(userId, provider, id, function (err) {
+            userServices.unmergeAccount(user, provider, id, function (err) {
                 if (err)
                     return next(err);
 
