@@ -275,7 +275,14 @@ function mapUser(user) {
 }
 
 function publishSocialAuth(req, callback) {
-    var message = {id: req.user._id, membership: req.authData.membership};
+    var message = {
+        id: req.user._id, //deprecated
+        userId: req.user._id,
+        role: req.user.role,
+        created: req.user.created,
+        membership: req.authData.membership
+    };
+
     if (req.authData.isNewUser) {
         bus.publishSignupUser(message, function (err) {
             if (err) {
