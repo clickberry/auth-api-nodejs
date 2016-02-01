@@ -8,7 +8,7 @@ var userMw = require('../middleware/user-mw');
 var userServices = require('../lib/user-services');
 var Bus = require('../lib/bus-service');
 var bus = new Bus({
-    mode: config.get('node:env'),
+    //mode: config.get('node:env'),
     address: config.get('nsqd:address'),
     port: config.getInt('nsqd:port')
 });
@@ -54,7 +54,7 @@ module.exports = function (passport) {
                         return next(err);
                     }
 
-                    res.send(200);
+                    res.sendStatus(200);
                 });
             });
         });
@@ -230,7 +230,7 @@ module.exports = function (passport) {
             if (err)
                 return next(err);
 
-            bus.publishMergeUser({id: toUserId, fromUserId: fromUserId}, function (err) {
+            bus.publishMergeUser({toUserId: toUserId, fromUserId: fromUserId}, function (err) {
                 if (err) {
                     return next(err);
                 }
@@ -266,8 +266,7 @@ module.exports = function (passport) {
 
 function mapUser(user) {
     return {
-        id: user._id, //deprecated
-        userId: user._id,
+        id: user._id,
         role: user.role,
         email: user.local.email,
         created: user.created
@@ -276,8 +275,7 @@ function mapUser(user) {
 
 function publishSocialAuth(req, callback) {
     var message = {
-        id: req.user._id, //deprecated
-        userId: req.user._id,
+        id: req.user._id,
         role: req.user.role,
         created: req.user.created,
         membership: req.authData.membership
