@@ -54,8 +54,12 @@ module.exports = function (passport) {
         email = email.toLowerCase();
         User.findOne(
             {
-                'memberships.provider': 'email',
-                'memberships.id': email
+                memberships: {
+                    $elemMatch: {
+                        provider: 'email',
+                        id: email
+                    }
+                }
             },
             {
                 role: 1,

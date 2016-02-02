@@ -4,8 +4,8 @@ var config = require('clickberry-config');
 var refreshToken = require('../middleware/refresh-token-mw');
 var accessToken = require('../middleware/access-token-mw');
 var userMw = require('../middleware/user-mw');
+var User = require('../models/user');
 
-var userServices = require('../lib/user-services');
 var Bus = require('../lib/bus-service');
 var bus = new Bus({
     mode: config.get('node:env'),
@@ -36,14 +36,14 @@ module.exports = function (passport) {
     router.delete('/account',
         passport.authenticate('access-token', {session: false}),
         function (req, res, next) {
-            var userId = req.user._id;
+            var user = req.user;
 
-            userServices.deleteAccount(userId, function (err) {
+            user.remove(function (err) {
                 if (err) {
                     return next(err);
                 }
 
-                bus.publishDeleteUser({id: userId}, function (err) {
+                bus.publishDeleteUser({id: user.id}, function (err) {
                     if (err) {
                         return next(err);
                     }
@@ -222,7 +222,7 @@ module.exports = function (passport) {
         var toUserId = req.tokens.token1.userId;
         var fromUserId = req.tokens.token2.userId;
 
-        userServices.mergeAccounts(toUserId, fromUserId, function (err) {
+        User.mergeAccounts(toUserId, fromUserId, function (err) {
             if (err)
                 return next(err);
 
@@ -239,15 +239,15 @@ module.exports = function (passport) {
     router.delete('/unmerge',
         passport.authenticate('access-token', {session: false}),
         function (req, res, next) {
-            var userId = req.user.id;
+            var user = req.user;
             var provider = req.body.provider;
             var id = req.body.id;
 
-            userServices.unmergeAccount(user, provider, id, function (err) {
+            user.unmergeAccount(provider, id, function (err) {
                 if (err)
                     return next(err);
 
-                bus.publishUnmergeUser({id: userId, provider: provider, socialId: id}, function (err) {
+                bus.publishUnmergeUser({id: user.id, membership: {provider: provider, id: id}}, function (err) {
                     if (err) {
                         return next(err);
                     }
@@ -278,7 +278,7 @@ function mapMembership(membership) {
     };
 }
 
-function createMessage(user, authData){
+function createMessage(user, authData) {
     return {
         id: user._id,
         role: user.role,
