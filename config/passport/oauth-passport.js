@@ -61,7 +61,7 @@ module.exports = function (passport) {
     ));
 
     function getUser(profile, token, callback) {
-        User.findOne({'memberships.id': profile.id, 'memberships.provider': profile.provider}, function (err, user) {
+        User.findOne({'memberships.provider': profile.provider, 'memberships.id': profile.id}, function (err, user) {
             if (err) {
                 callback(err);
             }
@@ -81,6 +81,7 @@ module.exports = function (passport) {
 
     function createUser(membership) {
         var newUser = new User();
+        newUser.role = 'user';
         newUser.memberships.push(membership);
 
         return newUser;

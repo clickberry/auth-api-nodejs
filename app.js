@@ -30,7 +30,7 @@ require('./models/user').createAdmin(adminEmail, password, function (err, admin)
     if (err) {
         console.log('Created/Updated Admin error.');
     } else {
-        console.log('Admin with email \'' + admin.local.email + '\' was Created/Updated.');
+        console.log('Admin with email \'' + adminEmail + '\' was Created/Updated.');
     }
 });
 

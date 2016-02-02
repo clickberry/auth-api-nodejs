@@ -35,38 +35,4 @@ module.exports = function (passport) {
             }
         });
     }));
-
-    passport.use('delete-refresh-token', new JwtStrategy({
-        secretOrKey: config.get('token:refreshSecret'),
-        passReqToCallback: true
-    }, function (req, jwtPayload, done) {
-        User.findById(jwtPayload.userId, function (err, user) {
-            if (err) {
-                return done(err, false);
-            }
-            if (user) {
-                req.token = jwtPayload.token;
-                done(null, user);
-            } else {
-                done(null, false);
-            }
-        });
-    }));
-
-    passport.use('delete-all-refresh-token', new JwtStrategy({
-        secretOrKey: config.get('token:refreshSecret'),
-        passReqToCallback: true
-    }, function (req, jwtPayload, done) {
-        User.findById(jwtPayload.userId, function (err, user) {
-            if (err) {
-                return done(err, false);
-            }
-            if (user) {
-                req.token = jwtPayload.token;
-                done(null, user);
-            } else {
-                done(null, false);
-            }
-        });
-    }));
 };

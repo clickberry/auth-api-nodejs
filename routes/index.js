@@ -8,7 +8,7 @@ var userMw = require('../middleware/user-mw');
 var userServices = require('../lib/user-services');
 var Bus = require('../lib/bus-service');
 var bus = new Bus({
-    //mode: config.get('node:env'),
+    mode: config.get('node:env'),
     address: config.get('nsqd:address'),
     port: config.getInt('nsqd:port')
 });
@@ -28,14 +28,8 @@ module.exports = function (passport) {
     router.get('/account',
         passport.authenticate('access-token', {session: false}),
         function (req, res) {
-            var user = req.user;
-            res.send({
-                id: user._id,
-                role: user.role,
-                email: user.local.email,
-                memberships: user.memberships,
-                created: user.created
-            });
+            var userDto = mapUser(req.user);
+            res.send(userDto);
         }
     );
 
@@ -172,7 +166,8 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        bus.publishSignupUser(mapUser(req.user), function (err) {
+        var message = createMessage(req.user, req.authData);
+        bus.publishSignupUser(message, function (err) {
             if (err) {
                 return next(err);
             }
@@ -191,7 +186,8 @@ module.exports = function (passport) {
         accessToken.create,
         userMw.update
     ], function (req, res, next) {
-        bus.publishSigninUser(mapUser(req.user), function (err) {
+        var message = createMessage(req.user, req.authData);
+        bus.publishSigninUser(message, function (err) {
             if (err) {
                 return next(err);
             }
@@ -204,7 +200,7 @@ module.exports = function (passport) {
     });
 
     router.delete('/signout', [
-        passport.authenticate('delete-refresh-token', {session: false}),
+        passport.authenticate('refresh-token', {session: false}),
         refreshToken.remove,
         userMw.update
     ], function (req, res, next) {
@@ -212,7 +208,7 @@ module.exports = function (passport) {
     });
 
     router.delete('/signoutall', [
-        passport.authenticate('delete-all-refresh-token', {session: false}),
+        passport.authenticate('refresh-token', {session: false}),
         refreshToken.removeAll,
         userMw.update
     ], function (req, res, next) {
@@ -268,18 +264,31 @@ function mapUser(user) {
     return {
         id: user._id,
         role: user.role,
-        email: user.local.email,
-        created: user.created
+        created: user.created,
+        memberships: user.memberships.map(mapMembership)
+    };
+}
+
+function mapMembership(membership) {
+    return {
+        id: membership.id,
+        provider: membership.provider,
+        email: membership.email,
+        name: membership.name
+    };
+}
+
+function createMessage(user, authData){
+    return {
+        id: user._id,
+        role: user.role,
+        created: user.created,
+        membership: mapMembership(authData.membership)
     };
 }
 
 function publishSocialAuth(req, callback) {
-    var message = {
-        id: req.user._id,
-        role: req.user.role,
-        created: req.user.created,
-        membership: req.authData.membership
-    };
+    var message = createMessage(req.user, req.authData);
 
     if (req.authData.isNewUser) {
         bus.publishSignupUser(message, function (err) {
