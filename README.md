@@ -47,7 +47,7 @@ The service generates events to the Bus (messaging service) in response to API r
 ## Send events
 ### Topics
 #### account-creates
-Creating new account
+Creating new account event.
 ```
 {
   id: "56aa4524de9e523c21b4205d",   // User id
@@ -63,6 +63,7 @@ Creating new account
 ```
 
 #### account-deletes
+User deleting account event.
 ```
 {
   id: "56aa4524de9e523c21b4205d"  // User id
@@ -70,6 +71,7 @@ Creating new account
 ```
 
 #### account-merges
+User merging accounts event.
 ```
 {
   toUserId: "56aa4524de9e523c21b4205d",   // User id merging to
@@ -78,6 +80,7 @@ Creating new account
 ```
 
 #### account-unmerges
+User unmerging event.
 ```
 {
   id: "56aa4524de9e523c21b4205d"  // User id 
@@ -89,6 +92,7 @@ Creating new account
 ```
 
 #### account-signins
+User login event.
 ```
 {
   {
@@ -101,7 +105,6 @@ Creating new account
     email: "president@kremlin.com", // User email
     name: "Putin V.V."              // User name 
   }
-}
 }
 ```
 
