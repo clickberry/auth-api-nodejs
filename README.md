@@ -47,6 +47,7 @@ The service generates events to the Bus (messaging service) in response to API r
 ## Send events
 ### Topics
 #### account-creates
+Creating new account
 ```
 {
   id: "56aa4524de9e523c21b4205d",   // User id
@@ -61,16 +62,48 @@ The service generates events to the Bus (messaging service) in response to API r
 }
 ```
 
-### Topics
-Topic | Message | Description
-:-- | :-- | :--
-registrations | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | User social and email registrations.
-logins | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | Social and email/password logins.
-account-merges | { id: *user_id*, fromUserId: *from_user_id* } | Account merges.
-account-unmerges | { id: *user_id*, provider: *social_provider*, socialId: *social_id* } | Social account deletes.
-account-creates | [User](#user) | Creates new account
-account-deletes | { id: *user_id* } | Account deletes
+#### account-deletes
+```
+{
+  id: "56aa4524de9e523c21b4205d"  // User id
+}
+```
 
+#### account-merges
+```
+{
+  toUserId: "56aa4524de9e523c21b4205d",   // User id merging to
+  fromUserId: "56af511dae77431819981ba2"  // User id merging from
+}
+```
+
+#### account-unmerges
+```
+{
+  id: "56aa4524de9e523c21b4205d"  // User id 
+  membership: {
+    id: 123456,                   // Inner provider id or user email
+    provider: "facebook"          // Provider name
+  }
+}
+```
+
+#### account-signins
+```
+{
+  {
+  id: "56aa4524de9e523c21b4205d",   // User id
+  role: "user",                     // User role
+  created: "2016-01-28T16:43:16Z",  //Date of user created
+  membersip: {
+    id: 1232334,                    // Inner provider id or user email
+    provider: "vkontakte",          // Provider name
+    email: "president@kremlin.com", // User email
+    name: "Putin V.V."              // User name 
+  }
+}
+}
+```
 
 # Encryption
 See on [http://passportjs.org](http://passportjs.org)
