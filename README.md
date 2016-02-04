@@ -39,22 +39,37 @@ FACEBOOK_CLIENTID | 9357215664*** | Facebook client id.
 FACEBOOK_CLIENTSECRET | 0dd6dd8d74*** | Facebook client secret.
 NSQD_ADDRESS | bus.yourdomain.com | A hostname or an IP address of the NSQD running instance.
 NSQD_PORT | 4150 | A TCP port number of the NSQD running instance to publish events.
-
-
-
+PORT | 8080 | Container port.
 
 # Events
 The service generates events to the Bus (messaging service) in response to API requests.
 
 ## Send events
+### Topics
+#### account-creates
+```
+{
+  id: "56aa4524de9e523c21b4205d",   // User id
+  role: "user",                     // User role
+  created: "2016-01-28T16:43:16Z",  //Date of user created
+  membersip: {
+    id: 1232334,                    // Inner provider id or user email
+    provider: "vkontakte",          // Provider name
+    email: "president@kremlin.com", // User email
+    name: "Putin V.V."              // User name 
+  }
+}
+```
 
+### Topics
 Topic | Message | Description
 :-- | :-- | :--
 registrations | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | User social and email registrations.
 logins | { id: *user_id*, email: *user_provided_email*, membership: { id: *id*, provider: *facebook*, token: *social_token*, name: *user_name* } } | Social and email/password logins.
 account-merges | { id: *user_id*, fromUserId: *from_user_id* } | Account merges.
 account-unmerges | { id: *user_id*, provider: *social_provider*, socialId: *social_id* } | Social account deletes.
-account-deletes | { id: *user_id* } | Account deletes.
+account-creates | [User](#user) | Creates new account
+account-deletes | { id: *user_id* } | Account deletes
 
 
 # Encryption
