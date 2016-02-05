@@ -40,6 +40,8 @@ FACEBOOK_CLIENTSECRET | 0dd6dd8d74*** | Facebook client secret.
 NSQD_ADDRESS | bus.yourdomain.com | A hostname or an IP address of the NSQD running instance.
 NSQD_PORT | 4150 | A TCP port number of the NSQD running instance to publish events.
 PORT | 8080 | Container port.
+ADMIN_EMAIL | email@mail.com | Admin email.
+ADMIN_PASSWORD | p@ssword | Admin password.
 
 # Events
 The service generates events to the Bus (messaging service) in response to API requests.
