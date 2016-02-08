@@ -28,8 +28,15 @@ function check(req, res, next) {
     next();
 }
 
+function clear(req, res, next) {
+    res.clearCookie('exchangeTokenCookie');
+
+    next();
+}
+
 exports.create = create;
 exports.check = check;
+exports.clear = clear;
 
 function createExchangePayload(user, token) {
     return {

@@ -272,6 +272,7 @@ module.exports = function (passport) {
     router.get('/exchange',
         passport.authenticate('exchange-token', {session: false}),
         exchangeToken.check,
+        exchangeToken.clear,
         refreshToken.create,
         accessToken.create,
         userMw.update,
