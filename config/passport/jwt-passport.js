@@ -35,4 +35,21 @@ module.exports = function (passport) {
             }
         });
     }));
+
+    passport.use('exchange-token', new JwtStrategy({
+        secretOrKey: config.get('token:exchangeSecret'),
+        passReqToCallback: true
+    }, function (req, jwtPayload, done) {
+        User.findById(jwtPayload.userId, function (err, user) {
+            if (err) {
+                return done(err, false);
+            }
+            if (user) {
+                req.token = jwtPayload.token;
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        });
+    }));
 };

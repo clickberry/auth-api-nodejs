@@ -4,6 +4,7 @@
   "token": {
     "accessTimeout": "1800",
     "refreshTimeout": "604800",
+    "exchangeTimeout": "300",
     "maxSessions": "10"
   },
   "facebook": {

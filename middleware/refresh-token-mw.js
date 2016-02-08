@@ -18,7 +18,6 @@ function create(req, res, next) {
     // add new token
     user.refreshTokens.push(refreshPayload.token);
 
-
     res.locals.refreshToken = createRefreshToken(refreshPayload);
     next();
 }

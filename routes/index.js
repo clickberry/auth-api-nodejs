@@ -3,6 +3,7 @@ var config = require('clickberry-config');
 
 var refreshToken = require('../middleware/refresh-token-mw');
 var accessToken = require('../middleware/access-token-mw');
+var exchangeToken = require('../middleware/exchange-token-mw');
 var userMw = require('../middleware/user-mw');
 var User = require('../models/user');
 
@@ -256,6 +257,31 @@ module.exports = function (passport) {
                 });
             });
         });
+
+    router.post('/exchange',
+        passport.authenticate('refresh-token', {session: false}),
+        refreshToken.check,
+        exchangeToken.create,
+        function (req, res, next) {
+            res.send({
+                exchangeToken: res.locals.exchangeToken
+            });
+        }
+    );
+
+    router.get('/exchange',
+        passport.authenticate('exchange-token', {session: false}),
+        exchangeToken.check,
+        refreshToken.create,
+        accessToken.create,
+        userMw.update,
+        function (req, res, next) {
+            res.send({
+                accessToken: res.locals.accessToken,
+                refreshToken: res.locals.refreshToken
+            });
+        }
+    );
 
     return router;
 };

@@ -1,11 +1,12 @@
 {
-  "host":{
-    "name":"local.portal.com",
-    "port":"8080"
+  "host": {
+    "name": "local.portal.com",
+    "port": "8080"
   },
   "token": {
     "accessSecret": "my access secret key",
-    "refreshSecret": "my refresh secret key"
+    "refreshSecret": "my refresh secret key",
+    "exchangeSecret": "my exchange secret key"
   },
   "mongodb": {
     "connection": "mongodb://localhost/tmp-base"
@@ -15,7 +16,7 @@
     "port": "4150",
     "disable": "disable"
   },
-  "admin":{
+  "admin": {
     "email": "admin@clickberry.com",
     "password": "123456"
   }
