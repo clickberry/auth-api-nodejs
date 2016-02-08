@@ -29,6 +29,7 @@ HOST_PORT | 80 | Callback host port.
 MONGODB_CONNECTION | mongodb://mongo_host:mongo_port/auth | MongoDB connection string.
 TOKEN_ACCESSSECRET | MDdDRDhBOD*** | Access token secret.
 TOKEN_REFRESHSECRET | NUQzNTYwND*** | Refresh token secret.
+TOKEN_EXCHANGESECRET | RTgd5yeR*** | Exchange token secret.
 TWITTER_CONSUMERKEY | YOUGHA9Fk5*** | Twitter consumer key.
 TWITTER_CONSUMERSECRET | XSAxmecNLh*** | Twitter consumer secret.
 GOOGLE_CLIENTID | 1856830825*** | Google client id.
@@ -298,6 +299,36 @@ Deletes user account.
 | HTTP       | Value     |
 |------------|-----------|
 | StatusCode | 200       |
+
+## POST /exchange
+Creates exchange token and set cookies for it.
+
+### Request
+| Header   | Value |
+|----------|-------------|
+| Authorization     | "JWT [refreshToken]" |
+
+### Response
+| HTTP       |  Value                                                             |
+|------------|--------------------------------------------------------------------|
+| StatusCode | 200                                                                |
+| Body       | {"exchangeToken": "eyJ0eXAiOiJKV1..."} |
+| Cookies | kJ936pY1CqQO2tNpPeRu... |
+
+## GET /exchange
+Get new access & refresh tokens. Need cookies for verifying request.
+
+### Request
+| Header   | Value |
+|----------|-------------|
+| Authorization     | "JWT [exchangeToken]" |
+| Cookies | kJ936pY1CqQO2tNpPeRu... |
+
+### Response
+| HTTP       |  Value                                                             |
+|------------|--------------------------------------------------------------------|
+| StatusCode | 200                                                                |
+| Body       | {"accessToken": "eyJ0eXAiOiJKV1...", "refreshToken": "ciOiJIU..."} |
 
 # License
 Source code is under GNU GPL v3 [license](LICENSE).
