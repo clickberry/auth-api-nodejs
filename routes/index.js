@@ -323,7 +323,7 @@ function publishSocialAuth(req, callback) {
                 return callback(err);
             }
 
-            callback()
+            callback();
         });
     }
     else {
