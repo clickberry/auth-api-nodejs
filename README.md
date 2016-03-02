@@ -312,17 +312,18 @@ Creates exchange token and set cookies for it.
 | HTTP       |  Value                                                             |
 |------------|--------------------------------------------------------------------|
 | StatusCode | 200                                                                |
+| Set-Cookie | exchangeTokenCookie=kJ936pY1CqQO2tNpPeRu... |
 | Body       | {"exchangeToken": "eyJ0eXAiOiJKV1..."} |
-| Cookies | kJ936pY1CqQO2tNpPeRu... |
+
 
 ## GET /exchange
-Get new access & refresh tokens. Need cookies for verifying request.
+Get new access & refresh tokens. Need cookies for verifying request. Clear *exchangeTokenCookie* after success request.
 
 ### Request
 | Header   | Value |
 |----------|-------------|
 | Authorization     | "JWT [exchangeToken]" |
-| Cookies | kJ936pY1CqQO2tNpPeRu... |
+| Cookie | exchangeTokenCookie=kJ936pY1CqQO2tNpPeRu... |
 
 ### Response
 | HTTP       |  Value                                                             |
