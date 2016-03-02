@@ -15,7 +15,7 @@ var userSchema = new Schema({
         name: String,
         password: String
     }, {_id: false})],
-    created: {type: Date, default: moment.utc()}
+    created: {type: Date, default: moment.utc}
 });
 
 userSchema.methods.generateHash = function (password, callback) {
